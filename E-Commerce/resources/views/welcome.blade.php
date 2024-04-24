@@ -246,13 +246,20 @@
                         <label for="password" class="block mb-2 text-sm font-medium text-white">Password</label>
                         <input type="password" name="password" id="password" placeholder="••••••••" class="bg-[#464646] bg-transparent border border-[#464646] text-white text-sm block w-full p-2.5 " required />
                     </div>
-                    <div class="flex justify-between">
-                        <div class="flex items-start">
-                            <label for="remember" class="ms-2 text-sm font-medium text-white bg-transparent ">Remember me</label>
+                    <div class="flex justify-between items-center">
+                      <!-- Bagian kiri dengan ingat saya -->
+                      <div class="flex items-center">
+                        <div class="flex items-center h-5">
+                          <input id="remember_token" name="remember_token" type="checkbox" value="1" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" />
                         </div>
-                        <a href="#" class="text-sm text-white hover:underline ">Forgot Password?</a>
+                        <label for="remember_token" class="ms-2 text-sm font-medium text-white-900 dark:text-white">Remember me</label>
+                      </div>
+                      <!-- Bagian kanan dengan forgot password -->
+                      <a href="#" class="text-sm text-white hover:underline">Forgot Password?</a>
                     </div>
-                    <div class="w-full text-center">
+                    
+                    </div>
+                    <div class="w-full text-center mt-3 mb-3">
                     <button type="submit" class=" bg-white  font-medium rounded-sm text-sm px-5 py-2 text-center">Sign In</button>
                     </div>
                     <div class="text-sm text-center font-medium text-gray-500 dark:text-gray-300">

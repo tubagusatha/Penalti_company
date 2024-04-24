@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Products;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Str;
 class ProductsController extends Controller
 {
 
@@ -34,9 +35,23 @@ class ProductsController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
-    }
+{
+    $validatedData = $request->validate([
+        'name_products' => 'required|string|max:100',
+        'description_products' => 'nullable|string',
+        'qty' => 'required|integer|min:0',
+        'prices_products' => 'required|integer|min:0',
+    ]);
+
+    $validatedData['slug'] = Str::slug($validatedData['name_products']);
+
+    // Change "Products" to "Product"
+    Products::create($validatedData);
+
+    // Change redirect URL to match your route definition
+    return redirect('/indexProduct');
+}
+
 
     /**
      * Display the specified resource.

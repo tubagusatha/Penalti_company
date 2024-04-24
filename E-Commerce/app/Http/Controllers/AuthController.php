@@ -12,7 +12,8 @@ class AuthController extends Controller
 {
     public function login(Request $request) {
         $credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
+        $remember = $request->has('remember_token') ? true : false;
+        if (Auth::attempt($credentials, $remember)) {
             return redirect('/');
         }else{
             return redirect('/')->with('error_messege', 'wrong email or pasword');
