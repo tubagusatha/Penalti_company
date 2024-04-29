@@ -40,9 +40,12 @@ Route::get('/admin_panel/profilelock', [AdminController::class,'profilelock']);
 
 
 Route::middleware([IsAdmin::class])->group(function () {
-    Route::get('/indexProduct', [ProductsController::class, 'index']);
-    Route::get('/indexProduct/create', [ProductsController::class, 'create']);
-    Route::post('/indexProduct', [ProductsController::class, 'store']);
+    Route::get('/admin_panel', [AdminController::class, 'index']);
+    // Route::get('/admin_panel/product', [ProductsController::class, 'index']);
+    Route::get('/admin_panel/user', [AdminController::class, 'user']);
+    Route::get('/admin_panel/setting', [AdminController::class, 'setting']);
+
+    Route::resource('/admin_panel/product', ProductsController::class);
 });
 
 

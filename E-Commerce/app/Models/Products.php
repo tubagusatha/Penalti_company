@@ -46,4 +46,12 @@ public function transaction_item(): BelongsTo
 {
     return $this->belongsTo(TransactionItems::class, 'id', 'product_id');
 }
+
+public function scopeSiwa ($query) {
+    return $query;
+}
+
+public function scopeSelectById($query, $id){
+    return $query->where('id', $id)->first();
+}
 }

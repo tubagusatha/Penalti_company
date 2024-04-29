@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Products;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -11,7 +12,7 @@ class AdminController extends Controller
     }
 
     public function product(){
-        return view('admin_ui.crud.products.index');
+//
     }
 
     public function user(){
