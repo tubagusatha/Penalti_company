@@ -21,4 +21,28 @@ class AdminController extends Controller
     public function setting(){
         return view('admin_ui.setting.index');
     }
+
+    public function carts(){
+        return view('admin_ui.charts');
+    }
+
+    public function signin(){
+        return view('admin_ui.auth.sign-in.index');
+    }
+
+    public function signup(){
+        return view('admin_ui.auth.sign-up.index');
+    }
+
+    public function resetpassword(){
+        return view('admin_ui.auth.reset-password.index');
+    }
+
+    public function forgotpassword(){
+        return view('admin_ui.auth.forgot-password.index');
+    }
+
+    public function profilelock(){
+        return view('admin_ui.auth.profile-lock.index');
+    }
 }
