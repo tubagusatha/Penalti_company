@@ -20,10 +20,10 @@ class AdminController extends Controller
     }
 
     public function setting(){
-        return view('admin_ui.setting.index');
+        return view('admin_ui.settings.index');
     }
 
-    public function carts(){
+    public function charts(){
         return view('admin_ui.charts');
     }
 
