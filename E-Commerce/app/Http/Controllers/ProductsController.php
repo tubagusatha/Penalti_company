@@ -50,8 +50,10 @@ class ProductsController extends Controller
         $validatedData = $request->validate([
             'name_products' => 'required|string|max:100',
             'description_products' => 'nullable|string',
-            'qty' => 'required|integer|min:0',
+            'starting_price' => 'required|integer|min:0',
             'prices_products' => 'required|integer|min:0',
+            'qty' => 'required|integer|min:0',
+            'show_products' => 'nullable|boolean',
         ]);
     
         $validatedData['slug'] = Str::slug($validatedData['name_products']);
@@ -69,7 +71,19 @@ class ProductsController extends Controller
      */
     public function show(string $id)
     {
-        return view('products.show');
+        // Mengambil satu produk berdasarkan ID
+    $products = Products::findOrFail($id);
+
+    // Memasukkan ID produk ke dalam array
+    $productIds = [$products->id];
+
+    $data = [
+        'product' => $products,
+        'productIds' => $productIds,
+    ];
+
+    return view('admin_ui.crud.gallery.index', $data);
+
     }
 
     /**
@@ -78,29 +92,33 @@ class ProductsController extends Controller
     public function edit(string $id)
     {
         $product = Products::findOrFail($id);
-        return view('admin_ui.crud.products.index', compact('product'));
+        return view('admin_ui.crud.products.update', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
-{
-    $product = Products::findOrFail($id);  // Find product by ID
-
-    $data = $request->validate([
-        'name_products' => 'required|string|max:100',
-        'description_products' => 'nullable|string',
-        'qty' => 'required|integer|min:0',
-        'prices_products' => 'required|integer|min:0',
-    ]);
-
-    $data['slug'] = Str::slug($request->name_products);
-
-    $product->update($data);  // Update the product instance
-
-    return redirect('/admin_panel/product');
-}
+    {
+        $validatedData = $request->validate([
+            'name_products' => 'required|string|max:100',
+            'description_products' => 'nullable|string',
+            'starting_price' => 'required|integer|min:0',
+            'prices_products' => 'required|integer|min:0',
+            'qty' => 'required|integer|min:0',
+            'show_products' => 'nullable|boolean',
+        ]);
+    
+        // Perbarui nilai show_products berdasarkan nilai checkbox
+        $validatedData['show_products'] = $request->has('show_products');
+    
+        $validatedData['slug'] = Str::slug($validatedData['name_products']);
+    
+        $product = Products::findOrFail($id);
+        $product->update($validatedData);
+    
+        return redirect('/admin_panel/product');
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -116,4 +134,5 @@ class ProductsController extends Controller
     // Mengirimkan respons JSON untuk menandai penghapusan berhasil
     return response()->json(['success' => true]);
 }
+    
 }

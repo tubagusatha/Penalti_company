@@ -11,7 +11,7 @@
 
 <link rel="canonical" href="https://flowbite-admin-dashboard.vercel.app/authentication/forgot-password/">
 
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,5 +60,6 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
 <script src="https://flowbite-admin-dashboard.vercel.app//app.bundle.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
   </body>
 </html>
