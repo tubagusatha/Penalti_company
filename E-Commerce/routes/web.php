@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductsGallery;
 use App\Http\Controllers\ProductsGalleryController;
 use App\Http\Middleware\IsAdmin;
@@ -27,6 +28,7 @@ Route::get('/', function () {
 Route::post('/login', [AuthController::class, 'login']);
 // Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/register', [AuthController::class, 'register']);
+Route::get('/profile', [ProfileController::class,'profile']);
 
 
 Route::get('/admin_panel', [AdminController::class,'index']);
