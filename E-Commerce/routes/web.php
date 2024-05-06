@@ -30,6 +30,7 @@ Route::post('/register', [AuthController::class, 'register']);
 
 
 Route::get('/admin_panel', [AdminController::class,'index']);
+Route::get('/admin_panel/charts', [AdminController::class,'charts']);
 Route::get('/admin_panel/product', [AdminController::class,'product']);
 Route::get('/admin_panel/user', [AdminController::class,'user']);
 Route::get('/admin_panel/setting', [AdminController::class,'setting']);

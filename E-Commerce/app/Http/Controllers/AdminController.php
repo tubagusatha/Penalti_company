@@ -23,7 +23,7 @@ class AdminController extends Controller
         return view('admin_ui.settings.index');
     }
 
-    public function carts(){
+    public function charts(){
         return view('admin_ui.charts');
     }
 
