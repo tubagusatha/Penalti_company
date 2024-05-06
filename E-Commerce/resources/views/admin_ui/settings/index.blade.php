@@ -1,65 +1,36 @@
-<!doctype html>
-<html lang="en" class="dark">
-  <head>
-    <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Get started with a free and open-source admin dashboard layout built with Tailwind CSS and Flowbite featuring charts, widgets, CRUD layouts, authentication pages, and more">
-<meta name="author" content="Themesberg">
-<meta name="generator" content="Hugo 0.125.3">
-
-<title>Tailwind CSS User Settings Page - Flowbite</title>
-
-<link rel="canonical" href="https://flowbite-admin-dashboard.vercel.app/settings/">
-
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://flowbite-admin-dashboard.vercel.app//app.css">
-<link rel="apple-touch-icon" sizes="180x180" href="https://flowbite-admin-dashboard.vercel.app/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://flowbite-admin-dashboard.vercel.app/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://flowbite-admin-dashboard.vercel.app/favicon-16x16.png">
-<link rel="icon" type="image/png" href="https://flowbite-admin-dashboard.vercel.app/favicon.ico">
-<link rel="manifest" href="https://flowbite-admin-dashboard.vercel.app/site.webmanifest">
-<link rel="mask-icon" href="https://flowbite-admin-dashboard.vercel.app/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="theme-color" content="#ffffff">
-<!-- Twitter -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="@">
-<meta name="twitter:creator" content="@">
-<meta name="twitter:title" content="Tailwind CSS User Settings Page - Flowbite">
-<meta name="twitter:description" content="Get started with a free and open-source admin dashboard layout built with Tailwind CSS and Flowbite featuring charts, widgets, CRUD layouts, authentication pages, and more">
-<meta name="twitter:image" content="https://flowbite-admin-dashboard.vercel.app/images/og-image.png">
-
-<!-- Facebook -->
-<meta property="og:url" content="https://flowbite-admin-dashboard.vercel.app/settings/">
-<meta property="og:title" content="Tailwind CSS User Settings Page - Flowbite">
-<meta property="og:description" content="Get started with a free and open-source admin dashboard layout built with Tailwind CSS and Flowbite featuring charts, widgets, CRUD layouts, authentication pages, and more">
-<meta property="og:type" content="article">
-<meta property="og:image" content="https://flowbite-admin-dashboard.vercel.app/images/og-image.png">
-<meta property="og:image:type" content="image/png">
-
-
-
-
-
-
+@extends("layout.auth")
+@section("main")    
 <script>
-    
-    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classList.remove('dark')
+  const sidebar = document.getElementById('sidebar');
+
+if (sidebar) {
+    const toggleSidebarMobile = (sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose) => {
+        sidebar.classList.toggle('hidden');
+        sidebarBackdrop.classList.toggle('hidden');
+        toggleSidebarMobileHamburger.classList.toggle('hidden');
+        toggleSidebarMobileClose.classList.toggle('hidden');
     }
+    
+    const toggleSidebarMobileEl = document.getElementById('toggleSidebarMobile');
+    const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+    const toggleSidebarMobileHamburger = document.getElementById('toggleSidebarMobileHamburger');
+    const toggleSidebarMobileClose = document.getElementById('toggleSidebarMobileClose');
+    const toggleSidebarMobileSearch = document.getElementById('toggleSidebarMobileSearch');
+    
+    toggleSidebarMobileSearch.addEventListener('click', () => {
+        toggleSidebarMobile(sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose);
+    });
+    
+    toggleSidebarMobileEl.addEventListener('click', () => {
+        toggleSidebarMobile(sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose);
+    });
+    
+    sidebarBackdrop.addEventListener('click', () => {
+        toggleSidebarMobile(sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose);
+    });
+}
+
 </script>
-  </head>
-  <body class="bg-gray-50 dark:bg-gray-800">
-    
-
-
-    
 <nav class="fixed z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
   <div class="px-3 py-3 lg:px-5 lg:pl-3">
     <div class="flex items-center justify-between">
@@ -70,7 +41,7 @@
         </button>
         <a href="#" class="flex ml-2 md:mr-24">
           <img src="https://flowbite-admin-dashboard.vercel.app/images/logo.svg" class="h-8 mr-3" alt="FlowBite Logo" />
-          <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
+          <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Admin Panel</span>
         </a>
         <form action="#" method="GET" class="hidden lg:block lg:pl-3.5">
           <label for="topbar-search" class="sr-only">Search</label>
@@ -240,10 +211,10 @@
             <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-2">
               <div class="px-4 py-3" role="none">
                 <p class="text-sm text-gray-900 dark:text-white" role="none">
-                  Neil Sims
+                    {{Auth::user()->firstname}} {{Auth::user()->lastname}}
                 </p>
                 <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                  neil.sims@flowbite.com
+                    {{Auth::user()->email}}
                 </p>
               </div>
               <ul class="py-1" role="none">
@@ -268,11 +239,8 @@
 </nav>
 <div class="flex pt-16 overflow-hidden bg-gray-50 dark:bg-gray-900">
 
-  <aside id="sidebar" class="fixed top-0 left-0 z-20 flex flex-col flex-shrink-0 hidden w-64 h-full pt-16 font-normal duration-75 lg:flex transition-width" aria-label="Sidebar">
-  
     @extends('layout.nav_admin')
-  
-</aside>
+
 
 <div class="fixed inset-0 z-10 hidden bg-gray-900/50 dark:bg-gray-900/90" id="sidebarBackdrop"></div>
   
@@ -666,11 +634,10 @@
     </div>
 </div>
     </main>
+   
+  </div>
+
+</div>
 
 
-
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-<script src="https://flowbite-admin-dashboard.vercel.app//app.bundle.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
-  </body>
-</html>
+@endsection

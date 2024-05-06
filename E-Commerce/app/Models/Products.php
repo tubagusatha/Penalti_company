@@ -16,10 +16,11 @@ class Products extends Model
     protected $fillable = [
         'name_products',
         'description_products',
+        'starting_price',
+        'prices_products',
         'qty',
         'slug',
-        'prices_products',
-
+        'show_products',
     ];
 
     public function gallery(): HasMany
@@ -37,6 +38,12 @@ public function carts(): HasOne
     return $this->hasOne(Carts::class, 'product_id', 'id');
 }
 
+public function category(): HasOne
+    {
+        return $this->hasOne(Category::class, 'product_id', 'id' );
+    }
+
+
 /**
  * Get the user that owns the Products
  *
@@ -52,6 +59,6 @@ public function scopeSiwa ($query) {
 }
 
 public function scopeSelectById($query, $id){
-    return $query->where('id', $id)->first();
+    return $query->where('id', $id);
 }
 }

@@ -1,65 +1,36 @@
-<!doctype html>
-<html lang="en" class="dark">
-  <head>
-    <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Get started with a free and open-source admin dashboard layout built with Tailwind CSS and Flowbite featuring charts, widgets, CRUD layouts, authentication pages, and more">
-<meta name="author" content="Themesberg">
-<meta name="generator" content="Hugo 0.125.3">
-
-<title>Tailwind CSS Products Page - Flowbite</title>
-
-<link rel="canonical" href="https://flowbite-admin-dashboard.vercel.app/crud/products/">
-
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://flowbite-admin-dashboard.vercel.app//app.css">
-<link rel="apple-touch-icon" sizes="180x180" href="https://flowbite-admin-dashboard.vercel.app/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://flowbite-admin-dashboard.vercel.app/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="https://flowbite-admin-dashboard.vercel.app/favicon-16x16.png">
-<link rel="icon" type="image/png" href="https://flowbite-admin-dashboard.vercel.app/favicon.ico">
-<link rel="manifest" href="https://flowbite-admin-dashboard.vercel.app/site.webmanifest">
-<link rel="mask-icon" href="https://flowbite-admin-dashboard.vercel.app/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="theme-color" content="#ffffff">
-<!-- Twitter -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="@">
-<meta name="twitter:creator" content="@">
-<meta name="twitter:title" content="Tailwind CSS Products Page - Flowbite">
-<meta name="twitter:description" content="Get started with a free and open-source admin dashboard layout built with Tailwind CSS and Flowbite featuring charts, widgets, CRUD layouts, authentication pages, and more">
-<meta name="twitter:image" content="https://flowbite-admin-dashboard.vercel.app/images/og-image.png">
-
-<!-- Facebook -->
-<meta property="og:url" content="https://flowbite-admin-dashboard.vercel.app/crud/products/">
-<meta property="og:title" content="Tailwind CSS Products Page - Flowbite">
-<meta property="og:description" content="Get started with a free and open-source admin dashboard layout built with Tailwind CSS and Flowbite featuring charts, widgets, CRUD layouts, authentication pages, and more">
-<meta property="og:type" content="article">
-<meta property="og:image" content="https://flowbite-admin-dashboard.vercel.app/images/og-image.png">
-<meta property="og:image:type" content="image/png">
-
-
-
-
-
-
+@extends("layout.auth")
+@section("main")    
 <script>
-    
-    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-    } else {
-        document.documentElement.classList.remove('dark')
+  const sidebar = document.getElementById('sidebar');
+
+if (sidebar) {
+    const toggleSidebarMobile = (sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose) => {
+        sidebar.classList.toggle('hidden');
+        sidebarBackdrop.classList.toggle('hidden');
+        toggleSidebarMobileHamburger.classList.toggle('hidden');
+        toggleSidebarMobileClose.classList.toggle('hidden');
     }
+    
+    const toggleSidebarMobileEl = document.getElementById('toggleSidebarMobile');
+    const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+    const toggleSidebarMobileHamburger = document.getElementById('toggleSidebarMobileHamburger');
+    const toggleSidebarMobileClose = document.getElementById('toggleSidebarMobileClose');
+    const toggleSidebarMobileSearch = document.getElementById('toggleSidebarMobileSearch');
+    
+    toggleSidebarMobileSearch.addEventListener('click', () => {
+        toggleSidebarMobile(sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose);
+    });
+    
+    toggleSidebarMobileEl.addEventListener('click', () => {
+        toggleSidebarMobile(sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose);
+    });
+    
+    sidebarBackdrop.addEventListener('click', () => {
+        toggleSidebarMobile(sidebar, sidebarBackdrop, toggleSidebarMobileHamburger, toggleSidebarMobileClose);
+    });
+}
+
 </script>
-  </head>
-  <body class="bg-gray-50 dark:bg-gray-800">
-    
-
-
-    
 <nav class="fixed z-30 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
   <div class="px-3 py-3 lg:px-5 lg:pl-3">
     <div class="flex items-center justify-between">
@@ -70,7 +41,7 @@
         </button>
         <a href="{{ url('/admin_panel')}}" class="flex ml-2 md:mr-24">
           <img src="https://flowbite-admin-dashboard.vercel.app/images/logo.svg" class="h-8 mr-3" alt="FlowBite Logo" />
-          <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Flowbite</span>
+          <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Admin Panel</span>
         </a>
         <form action="#" method="GET" class="hidden lg:block lg:pl-3.5">
           <label for="topbar-search" class="sr-only">Search</label>
@@ -239,10 +210,10 @@
             <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded shadow dark:bg-gray-700 dark:divide-gray-600" id="dropdown-2">
               <div class="px-4 py-3" role="none">
                 <p class="text-sm text-gray-900 dark:text-white" role="none">
-                  Neil Sims
+                  {{Auth::user()->firstname}} {{Auth::user()->lastname}}
                 </p>
                 <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                  neil.sims@flowbite.com
+                  {{Auth::user()->email}} 
                 </p>
               </div>
               <ul class="py-1" role="none">
@@ -273,7 +244,7 @@
   
   <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
     <main>
-      <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700">
+      <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700" style="margin-top: 1.5rem">
     <div class="w-full mb-1">
         <div class="mb-4">
             <nav class="flex mb-5" aria-label="Breadcrumb">
@@ -330,7 +301,7 @@
             </button>
         </div>
     </div>
-</div>
+  </div>
 <div class="flex flex-col">
   <div class="overflow-x-auto">
       <div class="inline-block min-w-full align-middle">
@@ -351,15 +322,14 @@
                               Description
                           </th>
                           <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
-                              QTY
-                          </th>
-                          <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                               Starting Price
                           </th>
                           <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                               Price
                           </th>
-                      
+                          <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
+                              QTY
+                          </th>
                           <th scope="col" class="p-4 text-xs font-medium text-left text-gray-500 uppercase dark:text-gray-400">
                               Category
                           </th>
@@ -386,28 +356,42 @@
                               <div class="text-base font-semibold text-gray-900 dark:text-white">{{$p->name_products}}</div>
                           </td>
                             <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">{{$p->description_products}}</td>
-                            <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$p->qty}}</td>
-                            <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">#194556</td>
+                            <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$p->starting_price}}</td>
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$p->prices_products}}</td>
+                            <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$p->qty}}</td>
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">$149</td>
-                          <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">No</td>
+                          <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            @if($p->show_products)
+                            Yes
+                        @else
+                            No
+                        @endif
+                          </td>
 
                           <td class="p-4 space-x-2 whitespace-nowrap">
-                            <button type="button" id="updateProductButton" data-drawer-target="drawer-update-product-default-edit" data-drawer-show="drawer-update-product-default-edit" aria-controls="drawer-update-product-default-edit" data-drawer-placement="right" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                            <a href="{{ url('admin_panel/product/' . $p->id . '/gallery') }}"
+                              class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                              <svg class="w-[18px] h-[18px] text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M4 18V8a1 1 0 0 1 1-1h1.5l1.707-1.707A1 1 0 0 1 8.914 5h6.172a1 1 0 0 1 .707.293L17.5 7H19a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Z"/>
+                                <path stroke="currentColor" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/>
+                              </svg>     
+                              Gallery
+                          </a>
+                            <a href="{{ url('admin_panel/product/' . $p->id . '/edit') }}"
+                              class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                               <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
-                              Update
-                          </button>
-                              <form id="deleteProductForm_{{ $p->id }}" action="/admin_panel/product/{{ $p->id }}" method="POST" class="inline">
-                                @csrf
-                                @method('DELETE')
-                          
+                              Update 
+                          </a>
                                 <!-- Tombol untuk mengeksekusi penghapusan -->
-                                <button type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2.5 text-center mr-2 dark:focus:ring-red-900" onclick="return confirm('Are you sure you want to delete this product?')">
-                                    Delete Item
-                                </button>
-                            </form>
+                                <form id="deleteProductForm_{{ $p->id }}" action="/admin_panel/product/{{ $p->id }}" method="POST" class="inline">
+                                  @csrf
+                                  @method('DELETE')
                             
-                              
+                                  <!-- Tombol untuk mengeksekusi penghapusan -->
+                                  <button type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-3 py-2.5 text-center mr-2 dark:focus:ring-red-900" onclick="return confirm('Are you sure you want to delete this product?')">
+                                      Delete Item
+                                  </button>
+                              </form>
                           </td>
                       </tr>
                          
@@ -418,7 +402,6 @@
       </div>
   </div>
 </div>
-
 
 <script>
   // Mendapatkan form penghapusan berdasarkan indeks
@@ -458,7 +441,6 @@
   });
 </script>
 
-
 <div class="sticky bottom-0 right-0 items-center w-full p-4 bg-white border-t border-gray-200 sm:flex sm:justify-between dark:bg-gray-800 dark:border-gray-700">
     <div class="flex items-center mb-4 sm:mb-0">
         <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -481,66 +463,6 @@
     </div>
 </div>
 
-<!-- Edit Product Drawer -->
-<div id="drawer-update-product-default-edit" class="fixed top-0 right-0 z-40 w-full h-screen max-w-xs p-4 overflow-y-auto transition-transform translate-x-full bg-white dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-label" aria-hidden="true">
-    <h5 id="drawer-label" class="inline-flex items-center mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">Update Product</h5>
-    <button type="button" data-drawer-dismiss="drawer-update-product-default-edit" aria-controls="drawer-update-product-default-edit" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
-        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-        <span class="sr-only">Close menu</span>
-    </button>
-  
-    <form action="{{url ('/admin_panel/product', $p->id)}}" method="POST" enctype="multipart/form-data">
-      @csrf
-      @method("PATCH")
-      <div class="space-y-4">
-        <div>
-                <label for="name_products" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                <input type="text" name="name_products" id="name_products" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" value="{{ old('name_products') ?? $p->name_products}}" placeholder="Type product name" required="">
-        </div>
-        <div>
-          <label for="description_products" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-          <textarea id="description_products" name="description_products" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter event description here">{{ old('description_products') ?? $p->description_products}}</textarea>
-        </div>
-  <div>
-  <label for="prices_products" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-  <input type="number" name="prices_products" id="prices_products" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$149" value="{{ old('prices_products') ?? $p->prices_products}}" required="">
-  </div>
-  <div>
-  <label for="qty" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Qty</label>
-  <input type="number" name="qty" id="qty" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$149" value="{{ old('qty') ?? $p->qty}}" required="">
-  </div>
-        <div>
-                <label for="category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Technology</label>
-                <select id="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                    <option selected="">Flowbite</option>
-                    <option value="RE">React</option>
-                    <option value="AN">Angular</option>
-                    <option value="VU">Vue JS</option>
-                </select>
-      </div>
-        <div>
-                <label for="discount" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Discount</label>
-                <select id="discount" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                <option selected="">No</option>
-                <option value="5">5%</option>
-                <option value="10">10%</option>
-                <option value="20">20%</option>
-                <option value="30">30%</option>
-                <option value="40">40%</option>
-                <option value="50">50%</option>
-            </select>
-        </div>
-        </div>
-        <div class="bottom-0 left-0 flex justify-center w-full pb-4 mt-4 space-x-4 sm:absolute sm:px-4 sm:mt-0">
-            <button type="submit" class="w-full justify-center text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                Update
-            </button>
-
-        </div>
-    </form>
-</div>
-
-
 <!-- Add Product Drawer -->
 <div id="drawer-create-product-default" class="fixed top-0 right-0 z-40 w-full h-screen max-w-xs p-4 overflow-y-auto transition-transform translate-x-full bg-white dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-label" aria-hidden="true">
     <h5 id="drawer-label" class="inline-flex items-center mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">New Product</h5>
@@ -559,36 +481,40 @@
               <label for="description_products" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
               <textarea id="description_products" name="description_products" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter event description here">{!! old('description_products') !!}</textarea>
           </div>
+          <div>
+            <label for="starting_price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Starting Price</label>
+            <input type="number" value="{{old('starting_price')}}" name="starting_price" id="starting_price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Rp 2000" required="">
+        </div>
             <div>
                 <label for="prices_products" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                <input type="number" value="{{old('prices_products')}}" name="prices_products" id="prices_products" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required="">
+                <input type="number" value="{{old('prices_products')}}" name="prices_products" id="prices_products" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Rp 2000" required="">
             </div>
             <div>
               <label for="prices_products" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Qty</label>
-              <input type="number" value="{{old('qty')}}" name="qty" id="qty" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="$2999" required="">
+              <input type="number" value="{{old('qty')}}" name="qty" id="qty" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Jumlah" required="">
           </div>
-            <div>
-                <label for="category-create" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Technology</label>
-                <select id="category-create" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                    <option selected="">Select category</option>
-                    <option value="FL">Flowbite</option>
-                    <option value="RE">React</option>
-                    <option value="AN">Angular</option>
-                    <option value="VU">Vue</option>
-                </select>
-            </div>
+
+          <div>
+            <label for="category-create" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+            <select id="category-create" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                <option selected="">Select Category</option>
+                <option value="FL">Beranda</option>
+                <option value="FL">Menu Shirt</option>
+                <option value="RE">Menu Tshirt</option>
+                <option value="AN">Menu Pants</option>
+                <option value="VU">Menu Accesories</option>
+            </select>
+        </div>
 
             <div>
-                <label for="discount-create" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Discount</label>
-                <select id="discount-create" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                    <option selected="">No</option>
-                    <option value="5">5%</option>
-                    <option value="10">10%</option>
-                    <option value="20">20%</option>
-                    <option value="30">30%</option>
-                    <option value="40">40%</option>
-                    <option value="50">50%</option>
-                </select>
+
+              <label for="show_products" class="inline-flex items-center cursor-pointer">
+                <input type="hidden" name="show_products" value="0">
+<input type="checkbox" id="show_products" name="show_products" class="sr-only peer" value="1" {{ old('show_products') ? 'checked' : '' }}>
+                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Show Products</span>
+              </label>
+              
             </div>
             <div class="bottom-0 left-0 flex justify-center w-full pb-4 space-x-4 md:px-4 md:absolute">
                 <button type="submit" class="text-white w-full justify-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
@@ -608,11 +534,4 @@
   </div>
 
 </div>
-
-
-
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-<script src="https://flowbite-admin-dashboard.vercel.app//app.bundle.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.2/datepicker.min.js"></script>
-  </body>
-</html>
+@endsection
