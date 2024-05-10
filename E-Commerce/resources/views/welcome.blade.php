@@ -118,16 +118,16 @@
         <a href="#" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 " aria-current="page">Home</a>
       </li>
       <li>
-        <a href="#" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Tshirt</a>
+        <a href="{{url(('/detail/tshirt'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Tshirt</a>
       </li>
       <li>
-        <a href="#" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Shirt</a>
+        <a href="{{url(('/detail/shirt'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Shirt</a>
       </li>
       <li>
-        <a href="#" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Pants</a>
+        <a href="{{url(('/detail/pants'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Pants</a>
       </li>
       <li>
-        <a href="#" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Accessories</a>
+        <a href="{{url(('/detail/accessories'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Accessories</a>
       </li>
     </ul>
   </div>
@@ -287,7 +287,7 @@
       <img class="w-full" src="{{ asset('assets/img/foto1.png') }}" alt="">
       <h1 class="text-white mb-1 mt-4 font-semibold text-3xl">Classic Polo Shirt</h1>
       <p class="text-white  mb-3 text-xl">Rp 128.000</p>
-      <button class="px-3 text-xs py-1.5 font-semibold rounded-sm bg-white">Buy Now</button>
+      <a class="px-3 text-xs py-1.5 font-semibold rounded-sm bg-white">Buy Now</a>
       <button class="absolute right-[7vw] md:right-[20px] xl:bottom-[60px] bottom-[50px]"><img class="w-[7vw] sm:w-[5vw] md:w-[5vw] lg:w-[3vw] xl:w-[2vw] 2xl:w-[1vw]" src="{{ asset('assets/img/vectorsave.svg') }}" alt=""></button>
     </div>
     <div class="relative w-full">
@@ -306,7 +306,7 @@
   </div>
   <div class=" mt-6 flex-col pb-6 flex items-center justify-center">
     <h1 class=" text-white mb-3 text-center uppercase font-Font-Products  text-3xl">Striped jacquard t-shirt x <br>casa josephine</h1>
-    <button class="px-3 text-xs  py-1.5 font-semibold rounded-sm bg-white"><a class=" " href="">Shop now</a></button>
+    <button class="px-3 text-xs  py-1.5 font-semibold rounded-sm bg-white"><a class=" " href="{{url(('/detail'))}}">Shop now</a></button>
     </div>
 </div>
 

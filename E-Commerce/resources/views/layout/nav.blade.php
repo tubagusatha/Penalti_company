@@ -1,6 +1,6 @@
 <nav class="bg-black  w-full z-30 sticky top-0 start-0 ">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-  <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
+  <a href="{{url(('/'))}}" class="flex items-center space-x-3 rtl:space-x-reverse">
       <span class="self-center mr-1 sm:mr-0 text-xl font-Font-Products font-bold whitespace-nowrap text-white">Pinalti Company</span>
   </a>
   <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -51,19 +51,19 @@
   <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
     <ul class="flex flex-col  p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-black md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  ">
       <li>
-        <a href="#" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 " aria-current="page">Home</a>
+        <a href="{{url(('/'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 " aria-current="page">Home</a>
       </li>
       <li>
-        <a href="#" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Tshirt</a>
+        <a href="{{url(('/detail/tshirt'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Tshirt</a>
       </li>
       <li>
-        <a href="#" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Shirt</a>
+        <a href="{{url(('/detail/shirt'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Shirt</a>
       </li>
       <li>
-        <a href="#" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Pants</a>
+        <a href="{{url(('/detail/pants'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Pants</a>
       </li>
       <li>
-        <a href="#" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Accessories</a>
+        <a href="{{url(('/detail/accessories'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Accessories</a>
       </li>
     </ul>
   </div>

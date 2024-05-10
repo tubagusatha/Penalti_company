@@ -2,19 +2,19 @@
 @extends('layout.nav')
 
 @section('main')
-<div class="container">
+<div class="container max-w-full sm:max-w-full">
     <div class="flex flex-wrap">
         <!-- top profile -->
         <div class="w-full p-5 bg-black flex items-center">
             <img src="{{ asset('assets/img/pic.svg') }}" alt="" class="mr-4">
             <div class="">
-                <div class="font-bold text-2xl text-white">
+                <div class="font-bold text-2xl  md:text-4xl text-white">
                     {{Auth::user()->firstname}} {{Auth::user()->lastname}}
                 </div>
-                <div class="font-light text-md text-gray flex">
+                <div class="flex">
                     
-                    <div><img src="{{asset('assets/img/pen.svg')}}" alt="" class="pt-1 pr-2"></div>
-                    <div class="pt-0.5 underline"><a href="" class="text-xs text-center">Ubah Profile</a></div>
+                    <div><img src="{{asset('assets/img/pen.svg')}}" alt="" class="pt-2 pr-2 md:w-6"></div>
+                    <div class="pt-0.5 underline"><a href="" class="text-sm md:text-lg text-center font-light text-gray">Ubah Profile</a></div>
                     
                 </div>
             </div>
@@ -25,15 +25,15 @@
 
 
 <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-    <ul class="grid grid-cols-3 -mb-px text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
+    <ul class="grid grid-cols-3 -mb-px text-sm md:text-lg font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
         <li class="me-2" role="presentation">
-            <button class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+            <button class="inline-block p-4 border-b-2 rounded-t-lg md:text-lg" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
         </li>
         <li class="me-2" role="presentation">
-            <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">My Order</button>
+            <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 md:text-lg" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">My Order</button>
         </li>
         <li class="me-2" role="presentation">
-            <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Manage_Address</button>
+            <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 md:text-lg" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Manage-Address</button>
         </li>
     </ul>
 </div>
@@ -45,25 +45,32 @@
 <main class="container mx-auto px-2">
     <section class="flex flex-col space-y-4">
 
-    <div class="mx-6">
-        <h4 class="text-lg font-semibold">Profil saya</h4>
-        <p class="font-light text-xs text-slate-500">Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun</p>
+    <div class="mx-10">
+        <h4 class="text-lg md:text-xl font-semibold">Profil saya</h4>
+        <p class="font-light text-xs md:text-2xl text-slate-500">Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun</p>
     </div>
 
     <!-- Garis panjang di bawah "Profil saya" -->
     <hr class="mt-3 mx-4 border-slate-400">
 
-    <div class="container mx-auto pt-5">
-  <div class="flex flex-col items-center">
+    <div class="md:flex md:flex-row-reverse">
+    <div class="container sm:mx-w-full mx-1/2 pt-5">
+    <div class="flex flex-col items-center justify-center">
     <img src="{{ asset('assets/img/pic.svg') }}" alt="" class="w-24">
-    <div class="text-sm mt-2">
-      <p>Ukuran gambar: maks. 1 MB</p>
-      <p>Format gambar: JPEG, PNG</p>
+    <div class="mt-6">
+        <label for="upload" class="text-xs border font-semibold text-dark bg-white py-2 px-4 border-gray rounded-md cursor-pointer">Pilih Gambar</label>
+        <input type="file" id="upload" class="hidden">
     </div>
-  </div>
+    <div class="text-sm mt-6">
+        <p class="text-gray font-light">Ukuran gambar: maks. 1 MB</p>
+        <p class="text-gray font-light">Format gambar: JPEG, PNG</p>
+    </div>
 </div>
 
-      <div class="grid grid-cols-2 gap-4 justify-end">
+</div>
+
+    <div class="md:flex md:flex-row-reverse">
+      <div class="grid grid-cols-2 gap-4 sm:mx-w-full mx-1/2 pt-10 justify-end">
         <!-- usn -->
         <div class="text-md text-gray text-end mr-3" >Username</div>
         <p class="text-md text-start text-dark">Hendra Mustafa</p>
@@ -114,6 +121,10 @@
 
 
       </div>
+
+      </div>
+
+      </div>
       
       </section>
       </main>
@@ -135,7 +146,7 @@
 
 
 
-
+<div class="md:hidden">
         <div class="container-2">
             <h4 class="text-lg text-dark text-center">Order</h4>
             <div class="flex flex-wrap pt-5">
@@ -155,11 +166,47 @@
         </div>
     </div>
 
+    <div class="hidden md:block">
+    <div class="container-3">
+        <div class="flex flew-wrap justify-between p-5">
+            <div class="">
+                <h1 class="text-dark text-lg font-semibold pb-5">Order</h1>
+                <div class="flex">
+                <img src="{{ asset('assets/img/pic_profile_order.svg') }}" alt="Image" class="">
+                <div class="mt-5 pl-3">
+                <p class="text-dark text-md font-light underline">Classic Polo Shirt</p>
+                <p class="text-dark text-sm font-light pt-3">Size : L</p>
+                <p class="text-dark text-sm font-light pt-1">Color : Deep purple</p>
+                </div>
+                </div>
+            </div>
+            <div class="">
+                <h1 class="text-dark text-lg font-semibold pb-5">Amount</h1>
+                <p class="text-center">1</p>
+            </div>
+            <div class="">
+                <h1 class="text-dark text-lg font-semibold pb-5">Price</h1>
+                <p class="text-center">120.000</p>
+            </div>
+            <div class="">
+                <h1 class="text-dark text-lg font-semibold pb-5">Order date</h1>
+                <p class="text-dark text-sm text-center">16 March 2024</p>
+            </div>
+            <div class="">
+                <h1 class="text-dark text-lg font-semibold pb-5">Tracking</h1>
+                <a href="" class="underline text-center">S.id.Tracking</a>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    </div>
+    <!-- Manage_Address -->
     
-    <div class="hidden p-4  bg-gray-50 dark:bg-gray-800" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+    <div class="hidden p-4  bg-white dark:bg-gray-800" id="settings" role="tabpanel" aria-labelledby="settings-tab">
         <div class="container-3">
             
-        <div class="w-full" >
+        <div class="w-full pb-5" >
             <a data-modal-target="modal-address" data-modal-toggle="modal-address"  class="border-dashed border-2 h-40 border-dark items text-center items-center justify-center flex shadow-xl shadow-slate-300">+ Add New Address</a>
         </div>
 
@@ -178,7 +225,11 @@
                 <h3 class="text-2xl font-semibold font-sans text-white pt-2">
                     Add Address
                 </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900  text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="modal-address">
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+                        data-modal-toggle="modal-address"/>
+                    </svg>
                 </button>
             </div>
             <!-- Modal body -->
@@ -186,35 +237,35 @@
                 <div class="grid gap-4 mb-4 grid-cols-4">
                     <div class="col-span-4">
                         <label for="name" class="block mb-2 text-md font-medium text-white ">Address Label</label>
-                        <input type="text" name="address" id="name" class="bg-third border border-third text-gray-900 text-sm  focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="example: Home, Apartment, etc" required="">
+                        <input type="text" name="address" id="name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="example: Home, Apartment, etc" required="">
                     </div>
                     <div class="col-span-4">
                         <label for="name" class="block mb-2 text-md font-medium text-white ">Recipient Name</label>
-                        <input type="text" name="address" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="enter name" required="">
+                        <input type="text" name="address" id="name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="enter name" required="">
                     </div>
                     <div class="col-span-4">
                         <label for="name" class="block mb-2 text-md font-medium text-white ">Recipient’s Mobile Number</label>
-                        <input type="text" name="address" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type mobile number here" required="">
+                        <input type="text" name="address" id="name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="Type mobile number here" required="">
                     </div>
                     <div class="col-span-4">
                         <label for="name" class="block mb-2 text-md font-medium text-white ">Address</label>
-                        <input type="text" name="address" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="type address" required="">
+                        <input type="text" name="address" id="name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="type address" required="">
                     </div>
                     <div class="col-span-2">
                         <label for="name" class="block mb-2 text-md font-medium text-white ">State</label>
-                        <input type="text" name="address" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type state here" required="">
+                        <input type="text" name="address" id="name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="Type state here" required="">
                     </div>
                     <div class="col-span-2">
                         <label for="name" class="block mb-2 text-md font-medium text-white ">City</label>
-                        <input type="text" name="address" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type city here" required="">
+                        <input type="text" name="address" id="name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="Type city here" required="">
                     </div>
                     <div class="col-span-2">
                         <label for="name" class="block mb-2 text-md font-medium text-white ">Subdistrict</label>
-                        <input type="text" name="address" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type subdistrict here" required="">
+                        <input type="text" name="address" id="name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="Type subdistrict here" required="">
                     </div>
                     <div class="col-span-2">
                         <label for="name" class="block mb-2 text-md font-medium text-white ">Postcode</label>
-                        <input type="text" name="address" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type postcode here" required="">
+                        <input type="text" name="address" id="name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="Type postcode here" required="">
                     </div>
 
                 </div>
@@ -229,19 +280,97 @@
 </div> 
 
 
-        <div class="w-full py-5">
-            <div class="border-2 h-40 border-gray items text-center items-center justify-center flex">
-                <h2></h2>
+<div class="w-full py-5">
+    <div class="border h-50 border-gray relative">
+        <div class="absolute top-0 right-0 py-3 px-3">
+            <a style="font-size: xx-small;" class="font-light items-end justify-end text-white bg-red py-1 px-3 hover:shadow-lg hover:opacity-80 ">PRIMARY</a>
+        </div>
+
+        <div class="py-3 px-3">
+            <h1 class="text-sm md:text-lg text-dark font-semibold">Home</h1>
+            <h2 class="text-sm md:text-lg text-dark font-medium">Hendra Mustafa</h2>
+            <h3 class="text-sm md:text-lg text-dark font-light">Jl. Benesari, Banjar Pengabetan</h3>
+            <h3 class="text-sm md:text-lg text-dark font-light">Jawa Timur, Surabaya, Wonokromo, 61432</h3>
+
+            <div class="pt-14 justify-between flex">
+            <a href="" class="text-md text-dark font-light">EDIT</a>
+            <a href="" class="text-md text-dark font-light"><img src="{{ asset(('assets/img/trash.svg'))}}" class="pl-80" alt="Trash"></a>
+            
             </div>
         </div>
-        
 
+        
+        
+    </div>
+</div>
+
+<div class="w-full py-5">
+    <div class="border h-50 border-gray relative">
+
+        <div class="py-3 px-3">
+            <h1 class="text-sm md:text-lg text-dark font-semibold">Home</h1>
+            <h2 class="text-sm md:text-lg text-dark font-medium">Hendra Mustafa</h2>
+            <h3 class="text-sm md:text-lg text-dark font-light">Jl. Benesari, Banjar Pengabetan</h3>
+            <h3 class="text-sm md:text-lg text-dark font-light">Jawa Timur, Surabaya, Wonokromo, 61432</h3>
+
+            <div class="pt-14 justify-between flex">
+            <a href="" class="text-md text-dark font-light">EDIT</a>
+            <a href="" class="text-md text-dark font-light"><img src="{{ asset(('assets/img/trash.svg'))}}" class="pl-80" alt="Trash"></a>
+            
+            </div>
         </div>
+
+        
+        
+    </div>
+</div>
+
+<div class="w-full py-5">
+    <div class="border h-50 border-gray relative">
+
+        <div class="py-3 px-3">
+            <h1 class="text-sm md:text-lg text-dark font-semibold">Home</h1>
+            <h2 class="text-sm md:text-lg text-dark font-medium">Hendra Mustafa</h2>
+            <h3 class="text-sm md:text-lg text-dark font-light">Jl. Benesari, Banjar Pengabetan</h3>
+            <h3 class="text-sm md:text-lg text-dark font-light">Jawa Timur, Surabaya, Wonokromo, 61432</h3>
+
+            <div class="pt-14 justify-between flex">
+            <a href="" class="text-md text-dark font-light">EDIT</a>
+            <a href="" class="text-md text-dark font-light"><img src="{{ asset(('assets/img/trash.svg'))}}" class="pl-80" alt="Trash"></a>
+            
+            </div>
+        </div>
+
+        
+        
+    </div>
+</div>
+
+<div class="w-full py-5">
+    <div class="border h-50 border-gray relative">
+        <div class="py-3 px-3">
+            <h1 class="text-sm md:text-lg text-dark font-semibold">Home</h1>
+            <h2 class="text-sm md:text-lg text-dark font-medium">Hendra Mustafa</h2>
+            <h3 class="text-sm md:text-lg text-dark font-light">Jl. Benesari, Banjar Pengabetan</h3>
+            <h3 class="text-sm md:text-lg text-dark font-light">Jawa Timur, Surabaya, Wonokromo, 61432</h3>
+
+            <div class="pt-14 justify-between flex">
+            <a href="" class="text-md text-dark font-light">EDIT</a>
+            <a href="" class="text-md text-dark font-light"><img src="{{ asset(('assets/img/trash.svg'))}}" class="pl-80" alt="Trash"></a>
+            
+            </div>
+        </div>
+
+        
+        
+    </div>
+</div>
+
     </div>
 </div>
 
     
-</div>
+
 
 <script src="../path/to/flowbite/dist/datepicker.js"></script> 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
