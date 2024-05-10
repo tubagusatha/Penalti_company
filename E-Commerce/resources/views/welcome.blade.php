@@ -121,12 +121,30 @@
     </button>
   </div>
   <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+
     <ul class="flex flex-col  p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-black md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
         @foreach($categories as $category)
         <li>
             <a href="#" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">{{ $category->name_category }}</a>
         </li>
         @endforeach
+
+    <ul class="flex flex-col  p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-black md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  ">
+      <li>
+        <a href="#" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 " aria-current="page">Home</a>
+      </li>
+      <li>
+        <a href="{{url(('/detail/tshirt'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Tshirt</a>
+      </li>
+      <li>
+        <a href="{{url(('/detail/shirt'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Shirt</a>
+      </li>
+      <li>
+        <a href="{{url(('/detail/pants'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Pants</a>
+      </li>
+      <li>
+        <a href="{{url(('/detail/accessories'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Accessories</a>
+      </li>
     </ul>
 </div>
 
@@ -286,10 +304,17 @@
     @foreach ($products as $product)
     @if ($product->show_products == true)
     <div class="relative w-full mb-12 md:mb-0">
+
       <img class="w-full" src="{{$product->gallery()->exists() ? ($product->gallery->first()->url_image) : 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==' }}" alt="">
       <h1 class="text-white mb-1 mt-4 font-semibold text-3xl">{{$product->name_products}}</h1>
       <p class="text-white  mb-3 text-xl">{{number_format($product->prices_products)}}</p>
       <button class="px-3 text-xs py-1.5 font-semibold rounded-sm bg-white">Buy Now</button>
+
+      <img class="w-full" src="{{ asset('assets/img/foto1.png') }}" alt="">
+      <h1 class="text-white mb-1 mt-4 font-semibold text-3xl">Classic Polo Shirt</h1>
+      <p class="text-white  mb-3 text-xl">Rp 128.000</p>
+      <a class="px-3 text-xs py-1.5 font-semibold rounded-sm bg-white">Buy Now</a>
+
       <button class="absolute right-[7vw] md:right-[20px] xl:bottom-[60px] bottom-[50px]"><img class="w-[7vw] sm:w-[5vw] md:w-[5vw] lg:w-[3vw] xl:w-[2vw] 2xl:w-[1vw]" src="{{ asset('assets/img/vectorsave.svg') }}" alt=""></button>
     </div>
     @else
@@ -305,7 +330,7 @@
   </div>
   <div class=" mt-6 flex-col pb-6 flex items-center justify-center">
     <h1 class=" text-white mb-3 text-center uppercase font-Font-Products  text-3xl">Striped jacquard t-shirt x <br>casa josephine</h1>
-    <button class="px-3 text-xs  py-1.5 font-semibold rounded-sm bg-white"><a class=" " href="">Shop now</a></button>
+    <button class="px-3 text-xs  py-1.5 font-semibold rounded-sm bg-white"><a class=" " href="{{url(('/detail'))}}">Shop now</a></button>
     </div>
 </div>
 

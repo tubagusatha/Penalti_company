@@ -19,6 +19,7 @@ export default {
         dark : '000000',
         gray : '7D7D7D',
         red : 'FF0000',
+        darkred: 'CF082D',
       },
     },
   },

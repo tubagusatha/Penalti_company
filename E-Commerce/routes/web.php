@@ -2,8 +2,12 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
+
+use App\Http\Controllers\DetailController;
+
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
@@ -29,6 +33,12 @@ Route::post('/login', [AuthController::class, 'login']);
 // Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/register', [AuthController::class, 'register']);
 Route::get('/profile', [ProfileController::class,'profile']);
+
+Route::get('/detail', [DetailController::class,'detail']);
+Route::get('/detail/tshirt', [DetailController::class,'detail_tshirt']);
+Route::get('/detail/shirt', [DetailController::class,'detail_shirt']);
+Route::get('/detail/pants', [DetailController::class,'detail_pants']);
+Route::get('/detail/accessories', [DetailController::class,'detail_accessories']);
 
 
 Route::get('/admin_panel', [AdminController::class,'index']);
