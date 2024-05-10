@@ -39,7 +39,7 @@ if (sidebar) {
             <svg id="toggleSidebarMobileHamburger" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
             <svg id="toggleSidebarMobileClose" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
           </button>
-          <a href="https://flowbite-admin-dashboard.vercel.app/" class="flex ml-2 md:mr-24">
+          <a href="{{url('admin_panel')}}" class="flex ml-2 md:mr-24">
             <img src="https://flowbite-admin-dashboard.vercel.app/images/logo.svg" class="h-8 mr-3" alt="FlowBite Logo" />
             <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Admin Panel</span>
           </a>
@@ -224,9 +224,6 @@ if (sidebar) {
                     <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
                   </li>
                   <li>
-                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
-                  </li>
-                  <li>
                     <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
                   </li>
                 </ul>
@@ -264,23 +261,28 @@ if (sidebar) {
                               <li>
                                   <div class="flex items-center">
                                       <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                                      <a href="#" class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2 dark:text-gray-300 dark:hover:text-white">Products</a>
+                                      <a href="{{url('admin_panel/product')}}" class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2 dark:text-gray-300 dark:hover:text-white">Products</a>
                                   </div>
                               </li>
-                          
-                              <li>
-                                  <div class="flex items-center">
-                                      <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
-                                      <a href="#" class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2 dark:text-gray-300 dark:hover:text-white">Galleries</a>
-                                  </div>
-                              </li>
-                          
                               <li>
                                 <div class="flex items-center">
                                   <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
                                   <span class="ml-1 text-gray-400 md:ml-2 dark:text-gray-500" aria-current="page">{{$product->name_products}}</span>
                                 </div>
                               </li>
+                              <li>
+                                  <div class="flex items-center">
+                                      <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                                      <a href="{{url('admin_panel/product/'. $product->id . '/gallery')}}" class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2 dark:text-gray-300 dark:hover:text-white">Galleries</a>
+                                  </div>
+                              </li>
+                              <li>
+                                  <div class="flex items-center">
+                                      <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path></svg>
+                                      <a href="#" class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2 dark:text-gray-300 dark:hover:text-white">Create Galleries</a>
+                                  </div>
+                              </li>
+                          
                             </ol>
                         </nav>
                         <h1 class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white">Create galleries</h1>
@@ -289,6 +291,37 @@ if (sidebar) {
               </div>
         </main>
 
+        <script>
+          document.addEventListener('DOMContentLoaded', function () {
+              // Ambil input file
+              const fileInput = document.getElementById('file_input');
+      
+              // Tambahkan event listener untuk meng-handle saat file dipilih
+              fileInput.addEventListener('change', function () {
+                  // Loop melalui setiap file yang dipilih
+                  for (const file of fileInput.files) {
+                      // Buat objek Image untuk memeriksa dimensi gambar
+                      const img = new Image();
+                      img.src = URL.createObjectURL(file);
+      
+                      // Setelah gambar dimuat, periksa ukurannya
+                      img.onload = function () {
+                          // Tentukan rasio aspek gambar (lebar:tinggi)
+                          const aspectRatio = img.width / img.height;
+      
+                          // Periksa apakah rasio aspek sama dengan 1:1
+                          if (Math.abs(aspectRatio - 1) > 0.001) {
+                              // Tampilkan pesan kesalahan jika gambar tidak memiliki rasio aspek 1:1
+                              alert('Gambar harus memiliki rasio aspek 1:1 (lebar:tinggi).');
+                              // Hapus file yang tidak memenuhi syarat
+                              fileInput.value = '';
+                          }
+                      };
+                  }
+              });
+          });
+      </script>
+      
 
         <form action="{{ route('product.gallery.store', $product->id) }}" class="w-full" method="POST" enctype="multipart/form-data">
             @csrf
@@ -296,9 +329,9 @@ if (sidebar) {
             <div class="px-4 py-5 bg-white sm:p-6 dark:bg-gray-800 dark:divide-gray-700">
                 <div class="flex-wrap -mx-3 mb-6 ">
                     <div class="w-full px-3 ">
-<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
-<input multiple class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" accept="image/*" name="files[]" type="file" required>
-<p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+                      <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
+                        <input multiple class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" accept="image/*" name="files[]" type="file" required>
+                          <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x600px).</p>
                     </div>
                 </div>
                 <div class="flex-wrap -mx-3 mb-6 ">

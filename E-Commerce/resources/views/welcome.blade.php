@@ -85,6 +85,14 @@
             <div class="font-medium truncate">{{Auth::user()->email}}</div>
         </div>
         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
+          @auth
+    @if(auth()->user()->isAdmin())
+        <li>
+            <a href="{{ url('admin_panel') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+        </li>
+    @endif
+@endauth
+
             <li>
                 <a href="{{url('/profile')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profil</a>
             </li>
@@ -113,6 +121,14 @@
     </button>
   </div>
   <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+
+    <ul class="flex flex-col  p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-black md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
+        @foreach($categories as $category)
+        <li>
+            <a href="#" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">{{ $category->name_category }}</a>
+        </li>
+        @endforeach
+
     <ul class="flex flex-col  p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-black md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  ">
       <li>
         <a href="#" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 " aria-current="page">Home</a>
@@ -130,7 +146,8 @@
         <a href="{{url(('/detail/accessories'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Accessories</a>
       </li>
     </ul>
-  </div>
+</div>
+
   </div>
 </nav>
 
@@ -250,9 +267,9 @@
                       <!-- Bagian kiri dengan ingat saya -->
                       <div class="flex items-center">
                         <div class="flex items-center h-5">
-                          <input id="remember_token" name="remember_token" type="checkbox" value="1" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" />
+                          <input id="remember_token" name="remember_token" type="checkbox" value="1" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 " />
                         </div>
-                        <label for="remember_token" class="ms-2 text-sm font-medium text-white-900 dark:text-white">Remember me</label>
+                        <label for="remember_token" class="ms-2 text-sm font-medium text-white dark:text-white">Remember me</label>
                       </div>
                       <!-- Bagian kanan dengan forgot password -->
                       <a href="#" class="text-sm text-white hover:underline">Forgot Password?</a>
@@ -283,20 +300,27 @@
 
 <div class="w-full px-10 p-6 h-min bg-black ">
   <div class="block md:flex md:gap-32">
+    
+    @foreach ($products as $product)
+    @if ($product->show_products == true)
     <div class="relative w-full mb-12 md:mb-0">
+
+      <img class="w-full" src="{{$product->gallery()->exists() ? ($product->gallery->first()->url_image) : 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==' }}" alt="">
+      <h1 class="text-white mb-1 mt-4 font-semibold text-3xl">{{$product->name_products}}</h1>
+      <p class="text-white  mb-3 text-xl">{{number_format($product->prices_products)}}</p>
+      <button class="px-3 text-xs py-1.5 font-semibold rounded-sm bg-white">Buy Now</button>
+
       <img class="w-full" src="{{ asset('assets/img/foto1.png') }}" alt="">
       <h1 class="text-white mb-1 mt-4 font-semibold text-3xl">Classic Polo Shirt</h1>
       <p class="text-white  mb-3 text-xl">Rp 128.000</p>
       <a class="px-3 text-xs py-1.5 font-semibold rounded-sm bg-white">Buy Now</a>
+
       <button class="absolute right-[7vw] md:right-[20px] xl:bottom-[60px] bottom-[50px]"><img class="w-[7vw] sm:w-[5vw] md:w-[5vw] lg:w-[3vw] xl:w-[2vw] 2xl:w-[1vw]" src="{{ asset('assets/img/vectorsave.svg') }}" alt=""></button>
     </div>
-    <div class="relative w-full">
-      <img class="w-full" src="{{ asset('assets/img/foto2.png') }}" alt="">
-      <h1 class="text-white mb-1 mt-4 font-semibold text-3xl">Classic Polo Shirt</h1>
-      <p class="text-white  mb-3 text-xl">Rp 128.0000</p>
-      <button class="px-3 text-xs py-1.5 font-semibold rounded-sm bg-white"><a href="">Buy Now</a></button>
-      <button class="absolute right-[7vw] md:right-[20px] xl:bottom-[60px] bottom-[50px]"><img class="w-[7vw] sm:w-[5vw] md:w-[5vw] lg:w-[3vw] xl:w-[2vw] 2xl:w-[1vw]" src="{{ asset('assets/img/vectorsave.svg') }}" alt=""></button>
-    </div>
+    @else
+    @endif
+    @endforeach
+    
   </div>
 </div>
 

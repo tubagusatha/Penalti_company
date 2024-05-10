@@ -224,9 +224,6 @@ if (sidebar) {
                   <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
                 </li>
                 <li>
-                  <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
-                </li>
-                <li>
                   <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
                 </li>
               </ul>
@@ -244,7 +241,7 @@ if (sidebar) {
   
   <div id="main-content" class="relative w-full h-full overflow-y-auto bg-gray-50 lg:ml-64 dark:bg-gray-900">
     <main>
-      <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 lg:mt-1.5 dark:bg-gray-800 dark:border-gray-700" style="margin-top: 1.5rem">
+      <div class="p-4 bg-white block sm:flex items-center justify-between border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 lg:mt-1.5"  >
     <div class="w-full mb-1">
         <div class="mb-4">
             <nav class="flex mb-5" aria-label="Breadcrumb">
@@ -284,7 +281,7 @@ if (sidebar) {
                         <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd"></path></svg>
                         </a>
-                        <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+                        <a href="{{url('admin_panel/product/bin')}}" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
                         </a>
                         <a href="#" class="inline-flex justify-center p-1 text-gray-500 rounded cursor-pointer hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -296,7 +293,7 @@ if (sidebar) {
                     </div>
                 </div>
             </div>
-            <button id="createProductButton" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800" type="button" data-drawer-target="drawer-create-product-default" data-drawer-show="drawer-create-product-default" aria-controls="drawer-create-product-default" data-drawer-placement="right">
+            <button id="createProductButton" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800" type="button" data-drawer-target="drawer-disabled-backdrop" data-drawer-show="drawer-disabled-backdrop" data-drawer-backdrop="false" aria-controls="drawer-disabled-backdrop" data-drawer-placement="right">
                 Add new product
             </button>
         </div>
@@ -356,10 +353,10 @@ if (sidebar) {
                               <div class="text-base font-semibold text-gray-900 dark:text-white">{{$p->name_products}}</div>
                           </td>
                             <td class="max-w-sm p-4 overflow-hidden text-base font-normal text-gray-500 truncate xl:max-w-xs dark:text-gray-400">{{$p->description_products}}</td>
-                            <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$p->starting_price}}</td>
-                            <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$p->prices_products}}</td>
+                            <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ number_format($p->starting_price)}}</td>
+                            <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ number_format($p->prices_products) }}</td>
                             <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$p->qty}}</td>
-                            <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">$149</td>
+                            <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">{{$p->category_id}}</td>
                           <td class="p-4 text-base font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             @if($p->show_products)
                             Yes
@@ -463,23 +460,73 @@ if (sidebar) {
     </div>
 </div>
 
+<script>
+  // Tambahkan ini di dalam file JavaScript kamu
+document.addEventListener('DOMContentLoaded', function() {
+    const drawer = document.getElementById('drawer-create-product-default');
+    const overlay = document.getElementById('drawer-overlay');
+
+    // Fungsi untuk menutup drawer dan overlay
+    function closeDrawer() {
+        drawer.classList.add('translate-x-full');
+        overlay.classList.add('hidden');
+        // Setelah menutup drawer, kembalikan pointer-events ke none untuk overlay
+        overlay.style.pointerEvents = 'none';
+    }
+
+    // Tambahkan event listener untuk menanggapi penutupan drawer
+    const dismissButtons = document.querySelectorAll('[data-drawer-dismiss]');
+    dismissButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            closeDrawer();
+        });
+    });
+
+    // Tambahkan event listener untuk menanggapi klik overlay
+    overlay.addEventListener('click', function() {
+        closeDrawer();
+    });
+
+    // Fungsi untuk membuka drawer dan overlay
+    function openDrawer() {
+        drawer.classList.remove('translate-x-full');
+        overlay.classList.remove('hidden');
+        // Ketika membuka drawer, aktifkan pointer-events di overlay
+        overlay.style.pointerEvents = 'auto';
+    }
+
+    // Tambahkan event listener untuk menanggapi pembukaan drawer
+    const openDrawerButtons = document.querySelectorAll('[data-drawer-open]');
+    openDrawerButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            openDrawer();
+        });
+    });
+});
+
+
+</script>
+
 <!-- Add Product Drawer -->
-<div id="drawer-create-product-default" class="fixed top-0 right-0 z-40 w-full h-screen max-w-xs p-4 overflow-y-auto transition-transform translate-x-full bg-white dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-label" aria-hidden="true">
-    <h5 id="drawer-label" class="inline-flex items-center mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">New Product</h5>
-    <button type="button" data-drawer-dismiss="drawer-create-product-default" aria-controls="drawer-create-product-default" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
-        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-        <span class="sr-only">Close menu</span>
-    </button>
+<div id="drawer-overlay" class="fixed top-0 left-0 z-30 w-full h-full bg-black opacity-50 pointer-events-none" aria-hidden="true"></div>
+<div id="drawer-disabled-backdrop" class="fixed top-0 right-0 z-40 w-full h-screen max-w-xs p-4 overflow-y-auto transition-transform translate-x-full bg-white dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-disabled-backdrop-label" aria-hidden="true">
+    <h5 id="drawer-disabled-backdrop-label" class="inline-flex items-center mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">New Product</h5>
+    <button type="button" data-drawer-hide="drawer-disabled-backdrop" aria-controls="drawer-disabled-backdrop" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white" >
+      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+      </svg>
+      <span class="sr-only">Close menu</span>
+   </button>
     <form action="{{ url('/admin_panel/product')}} " method="POST" enctype="multipart/form-data">
       @csrf
         <div class="space-y-4">
             <div>
                 <label for="name_products" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                <input type="text" name="name_products" id="name_products" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
+                <input type="text" value="{{old('name_products')}}" name="name_products" id="name_products" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Type product name" required="">
             </div>
             <div>
               <label for="description_products" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-              <textarea id="description_products" name="description_products" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter event description here">{!! old('description_products') !!}</textarea>
+              <textarea id="description_products" name="description_products" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required placeholder="Enter event description here">{!! old('description_products') !!}</textarea>
           </div>
           <div>
             <label for="starting_price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Starting Price</label>
@@ -495,19 +542,40 @@ if (sidebar) {
           </div>
 
           <div>
-            <label for="category-create" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
-            <select id="category-create" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                <option selected="">Select Category</option>
-                <option value="FL">Beranda</option>
-                <option value="FL">Menu Shirt</option>
-                <option value="RE">Menu Tshirt</option>
-                <option value="AN">Menu Pants</option>
-                <option value="VU">Menu Accesories</option>
+            <label for="category_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+            <select id="category_id" name="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                <option selected disabled>Select Category</option>
+                @foreach($category as $c)
+                    <option value="{{ $c->id }}">{{ $c->name_category }}</option>
+                @endforeach
             </select>
         </div>
+        <div id="categoryError" class="hidden text-red-500 text-sm mt-1">Please select a category.</div>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var categorySelect = document.getElementById('category_id');
+                var categoryError = document.getElementById('categoryError');
+        
+                categorySelect.addEventListener('change', function() {
+                    if (categorySelect.value !== '') {
+                        categoryError.classList.add('hidden');
+                    }
+                });
+        
+                var form = document.querySelector('form');
+        
+                form.addEventListener('submit', function(event) {
+                    if (categorySelect.value === '') {
+                        categoryError.classList.remove('hidden');
+                        event.preventDefault();
+                    }
+                });
+            });
+        </script>
+        
 
             <div>
-
               <label for="show_products" class="inline-flex items-center cursor-pointer">
                 <input type="hidden" name="show_products" value="0">
 <input type="checkbox" id="show_products" name="show_products" class="sr-only peer" value="1" {{ old('show_products') ? 'checked' : '' }}>
