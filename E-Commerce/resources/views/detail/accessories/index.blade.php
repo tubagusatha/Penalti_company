@@ -5,12 +5,12 @@
 <div class="container max-w-full sm:max-w-full">
         <!-- top profile -->
         <div class="max-w-full bg-dark">
-            <div class="text-center py-10 px-5 items-center justify-center flex flex-wrap">
-            <div class="text-white text-2xl">
-                <h1>Accessories</h1>
+            <div class="text-center py-10 px-5 items-center justify-center flex-col">
+            
+                <h1 class="text-white text-2xl">Accessories</h1>
+            
+            <p class="text-white text-sm xl:text-lg py-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, temporibus! Quod numquam dicta dolore assumenda et, obcaecati saepe ducimus cum.</p>
             </div>
-            <div class="text-white text-sm py-5">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, temporibus! Quod numquam dicta dolore assumenda et, obcaecati saepe ducimus cum.</p>
             </div>
             </div>
             <div class="grid grid-cols-2 gap-2 md:grid-cols-4 md:gap-4 px-5">
