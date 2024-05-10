@@ -98,7 +98,4 @@ class   ProductsGalleryController extends Controller
             // Redirect kembali ke halaman yang benar
             return redirect()->route('product.gallery.index', ['id' => $product_id])->with('success', 'Gallery item deleted successfully');
         }
-                
-
-
 }

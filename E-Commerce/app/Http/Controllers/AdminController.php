@@ -45,5 +45,5 @@ class AdminController extends Controller
 
     public function profilelock(){
         return view('admin_ui.auth.profile-lock.index');
-    }
+    }   
 }

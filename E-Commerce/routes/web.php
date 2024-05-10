@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
@@ -21,9 +23,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index'])->name('index');
 
 Route::post('/login', [AuthController::class, 'login']);
 // Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -32,11 +32,7 @@ Route::get('/profile', [ProfileController::class,'profile']);
 
 
 Route::get('/admin_panel', [AdminController::class,'index']);
-Route::get('/admin_panel/charts', [AdminController::class,'charts']);
-Route::get('/admin_panel/product', [AdminController::class,'product']);
-Route::get('/admin_panel/user', [AdminController::class,'user']);
-Route::get('/admin_panel/setting', [AdminController::class,'setting']);
-Route::get('/admin_panel/carts', [AdminController::class,'carts']);
+
 Route::get('/admin_panel/sign_in', [AdminController::class,'signin']);
 Route::get('/admin_panel/sign_up', [AdminController::class,'signup']);
 Route::get('/admin_panel/resetpassword', [AdminController::class,'resetpassword']);
@@ -44,16 +40,26 @@ Route::get('/admin_panel/forgotpassword', [AdminController::class,'forgotpasswor
 Route::get('/admin_panel/profilelock', [AdminController::class,'profilelock']);
 
 
+
 Route::middleware([IsAdmin::class])->group(function () {
     Route::get('/admin_panel', [AdminController::class, 'index']);
     // Route::get('/admin_panel/product', [ProductsController::class, 'index']);
-    Route::get('/admin_panel/user', [AdminController::class, 'user']);
+    Route::get('/admin_panel/user', [AdminController::class, 'user']); 
     Route::get('/admin_panel/setting', [AdminController::class, 'setting']);
+    Route::get('/admin_panel/category', [CategoryController::class, 'index']);
+    Route::post('/admin_panel/category/create', [CategoryController::class, 'store'])->name('category.store');
+    Route::delete('/admin_panel/category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
+    Route::get('/admin_panel/product/bin', [ProductsController::class, 'bin'])->name('product.bin');
+    Route::delete('/admin_panel/product/bin/{id}', [ProductsController::class, 'permanentDelete']);
+    Route::put('/admin_panel/product/{id}/restore', [ProductsController::class, 'restore'])->name('product.restore');
+
+    Route::get('/admin_panel/charts', [AdminController::class,'charts']);
     Route::resource('/admin_panel/product', ProductsController::class);
     Route::get('/admin_panel/product/{id}/edit', [ProductsController::class, 'edit']);
     Route::patch('/admin_panel/product/{id}', [ProductsController::class, 'update']);
     Route::delete('/admin_panel/product/{id}', [ProductsController::class, 'destroy']);
+    
 
     Route::get('/admin_panel/product/{id}/gallery', [ProductsGalleryController::class, 'index'])->name('product.gallery.index');
     Route::get('/admin_panel/product/{product_id}/gallery/create', [ProductsGalleryController::class, 'create']);

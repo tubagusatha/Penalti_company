@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -20,6 +21,7 @@ class ProductsController extends Controller
     public function index()
 { 
     $products = Products::get();
+    $category = Category::get();
 
     // Mengambil ID produk untuk setiap produk
     $productIds = $products->pluck('id');
@@ -27,6 +29,7 @@ class ProductsController extends Controller
 
     $data = [
         'products' => $products,
+        'category' => $category,
         'productIds' => $productIds,
     ];
 
@@ -46,24 +49,25 @@ class ProductsController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        $validatedData = $request->validate([
-            'name_products' => 'required|string|max:100',
-            'description_products' => 'nullable|string',
-            'starting_price' => 'required|integer|min:0',
-            'prices_products' => 'required|integer|min:0',
-            'qty' => 'required|integer|min:0',
-            'show_products' => 'nullable|boolean',
-        ]);
-    
-        $validatedData['slug'] = Str::slug($validatedData['name_products']);
-    
-        // Change "Products" to "Product"
-        Products::create($validatedData);
-    
-        // Change redirect URL to match your route definition
-        return redirect('/admin_panel/product');
-    }
+{
+    $validatedData = $request->validate([
+        'name_products' => 'required|string|max:100',
+        'description_products' => 'nullable|string',
+        'starting_price' => 'required|integer|min:0',
+        'prices_products' => 'required|integer|min:0',
+        'qty' => 'required|integer|min:0',
+        'show_products' => 'nullable|boolean',
+        'category_id' => 'required|exists:categories,id', // Add validation for category_id
+    ]);
+
+    $validatedData['slug'] = Str::slug($validatedData['name_products']);
+
+    // Change "Products" to "Product"
+    Products::create($validatedData);
+
+    // Change redirect URL to match your route definition
+    return redirect('/admin_panel/product');
+}
 
 
     /**
@@ -73,12 +77,14 @@ class ProductsController extends Controller
     {
         // Mengambil satu produk berdasarkan ID
     $products = Products::findOrFail($id);
+    $category = Category::get();
 
     // Memasukkan ID produk ke dalam array
     $productIds = [$products->id];
 
     $data = [
         'product' => $products,
+        'category' => $category,
         'productIds' => $productIds,
     ];
 
@@ -92,7 +98,10 @@ class ProductsController extends Controller
     public function edit(string $id)
     {
         $product = Products::findOrFail($id);
-        return view('admin_ui.crud.products.update', compact('product'));
+        $category = Category::get();
+
+
+        return view('admin_ui.crud.products.update', compact('product', 'category'));
     }
 
     /**
@@ -107,6 +116,7 @@ class ProductsController extends Controller
             'prices_products' => 'required|integer|min:0',
             'qty' => 'required|integer|min:0',
             'show_products' => 'nullable|boolean',
+            'category_id' => 'required|exists:categories,id',
         ]);
     
         // Perbarui nilai show_products berdasarkan nilai checkbox
@@ -134,5 +144,42 @@ class ProductsController extends Controller
     // Mengirimkan respons JSON untuk menandai penghapusan berhasil
     return response()->json(['success' => true]);
 }
+
+
+public function bin() {
+
+    $bin_item = Products::onlyTrashed()->get();
+
+    $data = [
+        'products' => $bin_item
+    ];
+
+    return view('admin_ui.crud.recyclebin.index', $data);
+    }
+
+    public function permanentDelete($id)
+{
+    // Retrieve the trashed product by its ID
+    $product = Products::withTrashed()->findOrFail($id);
     
+    // Permanently delete the product
+    $product->forceDelete();
+
+    // Redirect back or to another appropriate page
+    return redirect()->back()->with('success', 'Product permanently deleted from the recycle bin.');
+}
+
+
+public function restore($id)
+{
+    // Cari produk yang dihapus secara lunak
+    $product = Products::withTrashed()->findOrFail($id);
+
+    // Memulihkan produk
+    $product->restore();
+
+    // Redirect ke halaman terkait atau ke halaman recycle bin
+    return redirect()->route('product.bin')->with('success', 'Product restored successfully');
+}
+
 }
