@@ -97,8 +97,9 @@
                     <div class="max-w-full px-2">
                         <a href=""><img class="w-full" src="{{$product->gallery()->exists() ? ('http://127.0.0.1:8000/'.$product->gallery->first()->url_image) : 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==' }}" alt=""></a>
                     <div class="py-2">
-                    <h1 class="text-black text-sm">{{$product->name_products}}</h1>
-                    <p class="text-black text-[9px]">{{$product->prices_products}}</p>
+                    <h1 class="text-black font-Font-Products sm:text-[18px] md:text-[20px] lg:text-[26px]">{{$product->name_products}}</h1>
+                    <p class="text-black font-light text-[12px] md:text:[16px] lg:text-[18px]">
+                    Rp. {{$product->prices_products}}</p>
                     </div>
                     </div>
                 </div>

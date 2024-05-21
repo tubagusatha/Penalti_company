@@ -141,15 +141,15 @@
 
 </div>
 
-    <div class="md:flex md:flex-row-reverse">
-      <div class="grid grid-cols-2 gap-4 sm:mx-w-full mx-1/2 pt-10 justify-end">
+    <div class="md:flex md:flex-row-reverse"> 
+    <div class="grid grid-cols-2 gap-4 sm:mx-w-full mx-1/2 pt-10 justify-end">
         <!-- usn -->
         <div class="text-md text-gray text-end mr-3" >Username</div>
         <p class="text-md text-start text-dark">{{Auth::user()->firstname}} {{Auth::user()->lastname}}</p>
         <!-- email -->
         <div class="text-md text-end text-gray mr-3">Email Address</div>
 
-        <p class="text-md text-dark">Hendramus12@gmail.com <br><button data-modal-target="ganti-email" data-modal-toggle="ganti-email" type="button" class="text-white font-Font-Products bg-black border border-white font-medium rounded-lg text-sm px-2 sm:px-4 py-2 text-center"><a href="#" class="text-xs text-dark font-light underline">Sign In</a></button></p>
+        <p class="text-md text-dark">{{Auth::user()->email}}<br><button data-modal-target="ganti-email" data-modal-toggle="ganti-email" type="button" class="text-white font-Font-Products bg-black border border-white font-medium rounded-lg text-sm px-2 sm:px-4 py-2 text-center"><a href="#" class="text-xs text-dark font-light underline">Ubah</a></button></p>
         
 
         <!-- modal email -->
@@ -195,7 +195,6 @@
     </div>
 
         <!-- end modal email -->
-        <p class="text-md text-dark">{{Auth::user()->email}} <a href="#" class="text-xs text-dark font-light underline"><br>Ubah</a></p>
 
         <!-- mobile num -->
         <div class="text-md text-end text-gray mr-3">Mobile Number</div>
