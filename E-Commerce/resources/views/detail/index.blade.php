@@ -134,12 +134,12 @@
 </div>
 <!-- end modal size -->
     <div class="grid grid-cols-4 md:grid-cols-5 gap-2 pt-1">
-    <h2 class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex hover:bg-white border w-26 lg:h-14 col-span-1">XS</h2>
-    <h2 class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex hover:bg-white border w-26 lg:h-14 col-span-1">S</h2>
-    <h2 class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex hover:bg-white border w-26 lg:h-14 col-span-1">M</h2>
-    <h2 class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex hover:bg-white border w-26 lg:h-14 col-span-1">L</h2>
-    <h2 class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex hover:bg-white border w-26 lg:h-14 col-span-1">XL</h2>
-    <h2 class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex hover:bg-white border w-26 lg:h-14 col-span-1">2XL</h2>
+    <h2 class="text-white hover:text-black focus:text-black active:text-black text-md lg:text-xl text-center justify-center items-center flex hover:bg-white focus:bg-white active:bg-white border w-26 lg:h-14 col-span-1" style="cursor: pointer;">XS</h2>
+    <h2 class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex hover:bg-white border w-26 lg:h-14 col-span-1" style="cursor: pointer;">S</h2>
+    <h2 class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex hover:bg-white border w-26 lg:h-14 col-span-1" style="cursor: pointer;">M</h2>
+    <h2 class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex hover:bg-white border w-26 lg:h-14 col-span-1" style="cursor: pointer;">L</h2>
+    <h2 class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex hover:bg-white border w-26 lg:h-14 col-span-1" style="cursor: pointer;">XL</h2>
+    <h2 class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex hover:bg-white border w-26 lg:h-14 col-span-1" style="cursor: pointer;">2XL</h2>
     
     </div>
     
