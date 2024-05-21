@@ -99,9 +99,10 @@ class ProductsController extends Controller
     {
         $product = Products::findOrFail($id);
         $category = Category::get();
+        $last = Category::findOrFail($id);
 
 
-        return view('admin_ui.crud.products.update', compact('product', 'category'));
+        return view('admin_ui.crud.products.update', compact('product', 'category', 'last'));
     }
 
     /**
