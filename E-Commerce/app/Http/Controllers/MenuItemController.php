@@ -33,7 +33,7 @@ class MenuItemController extends Controller
     // dd($category);
     $products = Products::with('gallery')->where('category_id', $id)->get();
 
-    return view('layout.nav.index', compact('categories',  'categoryz', 'products' ));
+    return view('detail.tshirt.index', compact('categories',  'categoryz', 'products' ));
 }
 
 
