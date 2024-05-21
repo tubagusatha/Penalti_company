@@ -34,7 +34,7 @@ Route::get('/menu_item/{id}', [MenuItemController::class, 'showz']);
 Route::post('/login', [AuthController::class, 'login']);
 // Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/register', [AuthController::class, 'register']);
-Route::get('/profile/{id}', [ProfileController::class,'profile']);
+Route::get('/profile/{id}', [ProfileController::class,'index'])->name('profile');
 
 Route::get('/detail', [DetailController::class,'detail']);
 Route::get('/detail/tshirt', [DetailController::class,'detail_tshirt']);

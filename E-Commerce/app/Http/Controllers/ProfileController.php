@@ -8,13 +8,14 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
-    public function profile($id){
+    public function index($id){
 
+    //     // dd($id); 
         $categories = Category::all();
-    $categoryz = Category::findOrFail($id);
-    // dd($category);
-    $products = Products::with('gallery')->where('category_id', $id)->get();
+    // $categoryz = Category::findOrFail($id);
+    // // dd($category);
+    // $products = Products::with('gallery')->where('category_id', $id)->get();
 
-        return view('profile.index', compact('categories',  'categoryz', 'products' ));
+        return view('profile.index' ,compact('categories'));
     }
 }

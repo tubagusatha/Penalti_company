@@ -32,18 +32,19 @@
     <div class="p-6 lg:w-1/2 ">
     <div class="flex flex-wrap">
 <div class="w-full">
+    <div class="">
     <div class="flex justify-between">
         <div class="flex-initial w-auto">
         <h1 class="text-white text-xl md:text-3xl lg:text-5xl" >Athletics Frencs Terry Hoodie</h1>
         </div>
-    <div class=" flex-1 w-10 md:w-20 lg:hidden">
+    <div class=" flex-initial w-10 md:w-20 lg:hidden">
     <svg class="w-6 h-6 md:w-10 md:h-10 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 384 512"><path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"/></svg>
     </div>
 </div>
         <h2 class="text-white font-light text-md md:text-lg pt-1">$89.899</h2>
         
-        
-        </=>
+        </div>
+        </div>
         
         <!-- star rating -->
 
@@ -75,7 +76,7 @@
     <div class=" flex pt-3">
         <div class="grid grid-cols-5 gap-2 ">
             <div class="col-span-1 md:w-16">
-    <img src="{{asset(('assets/img/Rectangle.svg'))}}" class="" alt="">
+    <img src="{{asset(('assets/img/Rectangle.svg'))}}" alt="">
             </div>
             <div class="col-span-1 md:w-16">
     <img src="{{asset(('assets/img/Rectangle.svg'))}}" alt="">
