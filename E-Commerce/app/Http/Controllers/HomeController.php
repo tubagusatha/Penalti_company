@@ -7,6 +7,7 @@ use App\Models\Products;
 use Illuminate\Http\Request;
 
 use App\Models\Product;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -14,15 +15,27 @@ class HomeController extends Controller
     {
         // Dapatkan semua kategori
         $categories = Category::all();
+        $user = User::all();
+
 
         // Jika tidak ada kategori yang dipilih, ambil semua produk
         if ($request->has('category')) {
             $categoryId = $request->input('category');
-            $products = Products::with('gallery')->where('category_id', $categoryId)->latest()->get();
+            $products = Products::with('gallery')
+                                ->where('category_id', $categoryId)
+                                ->where('show_products', true)
+                                ->orderBy('id', 'asc')
+                                ->take(2)
+                                ->get();
         } else {
-            $products = Products::with('gallery')->latest()->get();
+            $products = Products::with('gallery')
+                                ->where('show_products', true)
+                                ->orderBy('id', 'asc')
+                                ->take(2)
+                                ->get();
         }
 
-        return view('welcome', compact('products', 'categories'));
+        return view('welcome', compact('products', 'categories', 'user'));
     }
 }
+

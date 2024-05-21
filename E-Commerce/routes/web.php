@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DetailController;
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MenuItemController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductsGallery;
@@ -28,11 +29,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('index');
-
+Route::get('/menu_item/{id}', [MenuItemController::class, 'showz']);
+// Route::get('/menu_item/{id}', [MenuItemController::class, 'nav']);
 Route::post('/login', [AuthController::class, 'login']);
 // Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::post('/register', [AuthController::class, 'register']);
-Route::get('/profile', [ProfileController::class,'profile']);
+Route::get('/profile/{id}', [ProfileController::class,'profile']);
 
 Route::get('/detail', [DetailController::class,'detail']);
 Route::get('/detail/tshirt', [DetailController::class,'detail_tshirt']);
@@ -51,12 +53,14 @@ Route::get('/admin_panel/profilelock', [AdminController::class,'profilelock']);
 
 
 
+
 Route::middleware([IsAdmin::class])->group(function () {
     Route::get('/admin_panel', [AdminController::class, 'index']);
     // Route::get('/admin_panel/product', [ProductsController::class, 'index']);
     Route::get('/admin_panel/user', [AdminController::class, 'user']); 
     Route::get('/admin_panel/setting', [AdminController::class, 'setting']);
     Route::get('/admin_panel/category', [CategoryController::class, 'index']);
+    Route::get('/category/{id}', [HomeController::class, 'showByCategory'])->name('category.products');
     Route::post('/admin_panel/category/create', [CategoryController::class, 'store'])->name('category.store');
     Route::delete('/admin_panel/category/{id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 

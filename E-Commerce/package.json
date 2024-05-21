@@ -23,5 +23,8 @@
     "test": "tests"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "apexcharts": "^3.49.1"
+  }
 }
