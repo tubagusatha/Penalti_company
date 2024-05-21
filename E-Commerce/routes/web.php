@@ -40,6 +40,8 @@ Route::get('/detail/shirt', [DetailController::class,'detail_shirt']);
 Route::get('/detail/pants', [DetailController::class,'detail_pants']);
 Route::get('/detail/accessories', [DetailController::class,'detail_accessories']);
 
+Route::get('/carts_detail', [DetailController::class,'carts_detail']);
+
 
 Route::get('/admin_panel', [AdminController::class,'index']);
 

@@ -286,7 +286,6 @@
             </div>
         </div>
     </div>
-</div> 
 
 <div class="w-full relative md:p-6 bg-black">
   <div class="relative overflow-hidden h-[80vh]">
@@ -308,7 +307,6 @@
       <img class="w-full" src="{{$product->gallery()->exists() ? ($product->gallery->first()->url_image) : 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==' }}" alt="">
       <h1 class="text-white mb-1 mt-4 font-semibold text-3xl">{{$product->name_products}}</h1>
       <p class="text-white  mb-3 text-xl">{{number_format($product->prices_products)}}</p>
-      <button class="px-3 text-xs py-1.5 font-semibold rounded-sm bg-white">Buy Now</button>
 
       <img class="w-full" src="{{ asset('assets/img/foto1.png') }}" alt="">
       <h1 class="text-white mb-1 mt-4 font-semibold text-3xl">Classic Polo Shirt</h1>
@@ -330,7 +328,7 @@
   </div>
   <div class=" mt-6 flex-col pb-6 flex items-center justify-center">
     <h1 class=" text-white mb-3 text-center uppercase font-Font-Products  text-3xl">Striped jacquard t-shirt x <br>casa josephine</h1>
-    <button class="px-3 text-xs  py-1.5 font-semibold rounded-sm bg-white"><a class=" " href="{{url(('/detail'))}}">Shop now</a></button>
+    <button class="px-3 text-sm  py-2 font-semibold rounded-md border border-white text-dark hover:text-white bg-white hover:bg-black"><a class="" href="{{url(('/detail'))}}">Shop now</a></button>
     </div>
 </div>
 
