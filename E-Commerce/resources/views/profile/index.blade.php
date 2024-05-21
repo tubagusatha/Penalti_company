@@ -148,7 +148,55 @@
         <p class="text-md text-start text-dark">{{Auth::user()->firstname}} {{Auth::user()->lastname}}</p>
         <!-- email -->
         <div class="text-md text-end text-gray mr-3">Email Address</div>
+
+        <p class="text-md text-dark">Hendramus12@gmail.com <br><button data-modal-target="ganti-email" data-modal-toggle="ganti-email" type="button" class="text-white font-Font-Products bg-black border border-white font-medium rounded-lg text-sm px-2 sm:px-4 py-2 text-center"><a href="#" class="text-xs text-dark font-light underline">Sign In</a></button></p>
+        
+
+        <!-- modal email -->
+
+        <div id="ganti-email" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden transition duration-300 ease-in-out fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full  max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-[#151515] p-12 rounded-lg shadow ">
+        <div class="">
+        <h1 class=" text-center font-bold text-3xl mb-8 text-white">Ubah Email</h1>
+        <div>
+        </div>
+</div>
+            <!-- Modal header -->
+            <div class="flex items-center justify-center   rounded-t dark:border-gray-600">
+
+                <!-- <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button> -->
+            </div>
+            <!-- Modal body -->
+            <div class="">
+                <form class="space-y-4" action="{{route('login')}}" method="POST">
+                  @csrf
+                    <div>
+                        <label for="email" class="block mb-2 text-sm font-medium text-white">Email baru</label>
+                        <input type="email" name="email" id="email" class="bg-[#464646] border border-[#464646] bg-transparent text-white text-sm block w-full p-2.5" placeholder="Your Email" required />
+                    </div>
+                    
+
+
+                    
+                    </div>
+                    <div class="w-full text-center mt-3 mb-3">
+                    <button type="submit" class=" bg-white  font-medium rounded-sm text-sm px-5 py-2 text-center">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+        <!-- end modal email -->
         <p class="text-md text-dark">{{Auth::user()->email}} <a href="#" class="text-xs text-dark font-light underline"><br>Ubah</a></p>
+
         <!-- mobile num -->
         <div class="text-md text-end text-gray mr-3">Mobile Number</div>
         <p class="text-md text-start text-dark">{{Auth::user()->number}} <a href="#" class="text-xs text-dark font-light underline"> <br>Ubah </a></p>
