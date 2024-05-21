@@ -223,7 +223,7 @@
                     <div class="max-w-full">
                     <a href="{{url(('/detail'))}}"><img src="{{ asset('assets/img/pic_profile_order.svg') }}" alt="Pic" class="w-full h-auto"></a>
                     <div class="py-2 flex">
-                    <h1 class="text-white text-sm md:text-lg font-medium">Classic Polo Shirt</h1>
+                    <h1 class="text-white text-sm md:text-lg font-medium">Classic Polo Shirt.</h1>
                     <div></div>
                     <svg class="w-3.5 h-3.5 md:w-10 md:h-10 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 384 512"><path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"/></svg>
                     </div>
