@@ -94,7 +94,7 @@
 @endauth
 
             <li>
-                <a href="{{url('/profile')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profil</a>
+                <a href="{{url("/profile/ . $user->id .")}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profil</a>
             </li>
             <li>
                 <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My Order</a>
@@ -120,32 +120,20 @@
         </svg>
     </button>
   </div>
+  
   <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
 
-    <ul class="flex flex-col  p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-black md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
-        @foreach($categories as $category)
-        <li>
-            <a href="#" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">{{ $category->name_category }}</a>
-        </li>
-        @endforeach
-
-    <ul class="flex flex-col  p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-black md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0  ">
+    <ul class="flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-black md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
       <li>
-        <a href="#" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0 " aria-current="page">Home</a>
+        <a href="{{url(('/'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Home</a>
       </li>
+      @foreach($categories as $category)
       <li>
-        <a href="{{url(('/detail/tshirt'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Tshirt</a>
+          <a href="{{ url("/menu_item/" . $category->id) }}" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0">{{ $category->name_category }}</a>
       </li>
-      <li>
-        <a href="{{url(('/detail/shirt'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Shirt</a>
-      </li>
-      <li>
-        <a href="{{url(('/detail/pants'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Pants</a>
-      </li>
-      <li>
-        <a href="{{url(('/detail/accessories'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Accessories</a>
-      </li>
-    </ul>
+      @endforeach
+  </ul>
+  
 </div>
 
   </div>
@@ -297,15 +285,14 @@
   </div>
 </div>
 
-<div class="w-full px-10 p-6 h-min bg-black ">
+<div class="w-full px-10 p-6 h-min bg-black">
   <div class="block md:flex md:gap-32">
-    
     @foreach ($products as $product)
     @if ($product->show_products == true)
     <div class="relative w-full mb-12 md:mb-0">
-
       <img class="w-full" src="{{$product->gallery()->exists() ? ($product->gallery->first()->url_image) : 'data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==' }}" alt="">
       <h1 class="text-white mb-1 mt-4 font-semibold text-3xl">{{$product->name_products}}</h1>
+
       <p class="text-white  mb-3 text-xl">{{number_format($product->prices_products)}}</p>
 
       <img class="w-full" src="{{ asset('assets/img/foto1.png') }}" alt="">
@@ -314,11 +301,13 @@
       <a class="px-3 text-xs py-1.5 font-semibold rounded-sm bg-white">Buy Now</a>
 
       <button class="absolute right-[7vw] md:right-[20px] xl:bottom-[60px] bottom-[50px]"><img class="w-[7vw] sm:w-[5vw] md:w-[5vw] lg:w-[3vw] xl:w-[2vw] 2xl:w-[1vw]" src="{{ asset('assets/img/vectorsave.svg') }}" alt=""></button>
+
+      <p class="text-white mb-3 text-xl">{{number_format($product->prices_products)}}</p>
+      <button class="px-3 text-xs py-1.5 font-semibold rounded-sm bg-white">Buy Now</button>
     </div>
     @else
     @endif
     @endforeach
-    
   </div>
 </div>
 
