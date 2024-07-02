@@ -25,6 +25,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apexcharts": "^3.49.1"
+    "apexcharts": "^3.49.1",
+    "cropperjs": "^1.6.2",
+    "croppie": "^2.6.5"
   }
 }

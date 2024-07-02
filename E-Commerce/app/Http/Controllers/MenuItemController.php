@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Products;
+use App\Models\User;
+use App\Models\userGallery;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MenuItemController extends Controller
 {
@@ -21,7 +24,7 @@ class MenuItemController extends Controller
             $products = Products::with('gallery')->latest()->get();
         }
 
-        return view('welcome', compact('products', 'categories'));
+        return view('welcome', compact('products', 'categories', 'img', 'user'));
     }
 
     
@@ -30,10 +33,14 @@ class MenuItemController extends Controller
 {
     $categories = Category::all();
     $categoryz = Category::findOrFail($id);
+    $userId = Auth::id();
+
+        // Dapatkan gambar terbaru dari galeri pengguna, atau null jika tidak ada
+        $img = userGallery::where('user_id', $userId)->latest()->first();
     // dd($category);
     $products = Products::with('gallery')->where('category_id', $id)->get();
 
-    return view('detail.tshirt.index', compact('categories',  'categoryz', 'products' ));
+    return view('detail.tshirt.index', compact('categories',  'categoryz', 'products', 'img' ));
 }
 
 

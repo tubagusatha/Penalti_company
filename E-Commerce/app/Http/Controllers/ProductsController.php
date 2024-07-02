@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Products;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -18,10 +19,16 @@ class ProductsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-{ 
-    $products = Products::get();
-    $category = Category::get();
+    public function index(Request $request)
+{
+    $search = $request->input('search');
+    
+    // Query to get all products or search by name_products
+    $products = Products::when($search, function ($query, $search) {
+        return $query->where('name_products', 'like', '%' . $search . '%');
+    })->get();
+
+$category = Category::get();
 
     // Mengambil ID produk untuk setiap produk
     $productIds = $products->pluck('id');
@@ -33,7 +40,7 @@ class ProductsController extends Controller
         'productIds' => $productIds,
     ];
 
-        return view('admin_ui.crud.products.index', $data);
+    return view('admin_ui.crud.products.index', $data);
 }
 
     /**
@@ -49,25 +56,35 @@ class ProductsController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-{
-    $validatedData = $request->validate([
-        'name_products' => 'required|string|max:100',
-        'description_products' => 'nullable|string',
-        'starting_price' => 'required|integer|min:0',
-        'prices_products' => 'required|integer|min:0',
-        'qty' => 'required|integer|min:0',
-        'show_products' => 'nullable|boolean',
-        'category_id' => 'required|exists:categories,id', // Add validation for category_id
-    ]);
+    {
+        try {
+            // Validasi data yang diterima dari request
+            $validatedData = $request->validate([
+                'name_products' => 'required|string|max:100',
+                'description_products' => 'nullable|string',
+                'detail_products' => 'nullable|string',
+                'starting_price' => 'required|integer|min:0',
+                'prices_products' => 'required|integer|min:0',
+                'qty' => 'required|integer|min:0',
+                'show_products' => 'nullable|boolean',
+                'category_id' => 'required|exists:categories,id', // Validasi untuk category_id
+            ]);
+    
+            $validatedData['slug'] = Str::slug($validatedData['name_products']);
+    
+            // Use the Product model (assuming it should be singular)
+            Products::create($validatedData);
+    
+            // Redirect URL to match your route definition
+            return redirect('/admin_panel/product')->with('success', 'Product berhasil dibuat');
+        } catch (QueryException $e) {
+            // Tangani kesalahan terkait constraint foreign key
+            return back()->with('error', "Nama produk sudah ada.");
+        }
+    }
+    
 
-    $validatedData['slug'] = Str::slug($validatedData['name_products']);
 
-    // Change "Products" to "Product"
-    Products::create($validatedData);
-
-    // Change redirect URL to match your route definition
-    return redirect('/admin_panel/product');
-}
 
 
     /**
@@ -95,15 +112,18 @@ class ProductsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        $product = Products::findOrFail($id);
-        $category = Category::get();
-        $last = Category::findOrFail($id);
+    public function edit($id) {
 
+    // dd($id);
+    // Temukan produk berdasarkan ID
+    $product = Products::findOrFail($id);
+        $category = Category::all();
+    // $last = Category::where('id', $id)->get();
+    // dd($lastz);
+    
+    return view('admin_ui.crud.products.update', compact('product', 'category'));
+}
 
-        return view('admin_ui.crud.products.update', compact('product', 'category', 'last'));
-    }
 
     /**
      * Update the specified resource in storage.
@@ -113,6 +133,7 @@ class ProductsController extends Controller
         $validatedData = $request->validate([
             'name_products' => 'required|string|max:100',
             'description_products' => 'nullable|string',
+            'detail_products' => 'nullable|string',
             'starting_price' => 'required|integer|min:0',
             'prices_products' => 'required|integer|min:0',
             'qty' => 'required|integer|min:0',

@@ -45,10 +45,10 @@ class CategoryController extends Controller
             // Hapus kategori
             $category->delete();
             
-            return redirect('/admin_panel/categories')->with('success', 'Category deleted successfully.');
+            return redirect('/admin_panel/category')->with('success', 'Category berhasil dihapus');
         } catch (QueryException $e) {
             // Tangani kesalahan terkait constraint foreign key
-            return back()->with('error', "tidak bisa menghapus category '{$category->name_category}'. kamu harus menghapus data product di softdeletes yang berada di halaman product");
+            return back()->with('error', "Tidak bisa menghapus category '{$category->name_category}'. kamu harus menghapus data product di halaman product. Jika sudah, hapus di halaman recycle bin");
         } catch (\Exception $e) {
             // Tangani kesalahan umum
             return back()->with('error', 'Failed to delete category. Please try again later.');

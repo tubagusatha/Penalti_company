@@ -40,7 +40,7 @@ if (sidebar) {
           <svg id="toggleSidebarMobileClose" class="hidden w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
         </button>
         <a href="{{url('admin_panel')}}" class="flex ml-2 md:mr-24">
-          <img src="https://flowbite-admin-dashboard.vercel.app/images/logo.svg" class="h-8 mr-3" alt="FlowBite Logo" />
+          
           <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Admin Panel</span>
         </a>
         <form action="#" method="GET" class="hidden lg:block lg:pl-3.5">
@@ -203,7 +203,6 @@ if (sidebar) {
             <div>
               <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
                 <span class="sr-only">Open user menu</span>
-                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
               </button>
             </div>
             
@@ -295,6 +294,10 @@ if (sidebar) {
         <textarea id="description_products" name="description_products" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter event description here">{{ old('description_products') ?? $product->description_products}}</textarea>
     </div>
     <div class=" px-3 py-3 dark:bg-gray-800 dark:border-gray-700">
+      <label for="detail_products" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Detail Products</label>
+      <textarea id="detail_products" name="detail_products" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Enter event description here">{{ old('detail_products') ?? $product->detail_products}}</textarea>
+  </div>
+    <div class=" px-3 py-3 dark:bg-gray-800 dark:border-gray-700">
       <label for="starting_price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Starting Price</label>
 <input type="number" name="starting_price" id="starting_price" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Rp 3000" value="{{ old('starting_price') ?? $product->starting_price}}" required="">
   </div>
@@ -309,7 +312,7 @@ if (sidebar) {
    <div class=" px-3 py-3 dark:bg-gray-800 dark:border-gray-700">
     <label for="category_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
     <select id="category_id" name="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-      <option value="{{$last->id}}" selected="">{{$last->name_category}}</option>
+      <option value="{{$product->category->id}}" selected="">{{$product->category->name_category}}</option>
       @foreach($category as $c)
       <option value="{{ $c->id }}">{{ $c->name_category }}</option>
       @endforeach

@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Contracts\Session\Session;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -30,23 +32,34 @@ class AuthController extends Controller
 
     
     public function register(Request $request) {
-        $request->validate([
-            'firstname' => 'required|string|min:2|max:50',
-            'lastname' => 'required|string|min:2|max:50',
-            'email' => 'required|email|unique:users,email',
-            'number' => 'required|string|min:2|max:15', // Adjust the maximum length as needed
-            'password' => 'required|string|min:8|confirmed',
-        ]);
+        try {
+            $request->validate([
+                'firstname' => 'required|string|min:2|max:50',
+                'lastname' => 'required|string|min:2|max:50',
+                'email' => 'required|email|unique:users,email',
+                'number' => 'required|string', // Menggunakan regex untuk panjang digit
+                'password' => 'required|string|min:8|confirmed',
+            ]);
     
-        User::create([
-            'firstname' => $request->input('firstname'),
-            'lastname' => $request->input('lastname'),
-            'email' => $request->input('email'),
-            'number' => $request->input('number'),
-            'password' => Hash::make($request->input('password'))
-        ]);
+            User::create([
+                'firstname' => $request->input('firstname'),
+                'lastname' => $request->input('lastname'),
+                'email' => $request->input('email'),
+                'number' => $request->input('number'),
+                'password' => Hash::make($request->input('password'))
+            ]);
     
-        return redirect('/'); // Assuming you have a route named 'welcome' for your homepage
+            return redirect('/');
+        }       
+        catch (ValidationException $e) {
+            // Tangani kesalahan validasi
+            return back()->withErrors($e->errors())->withInput();
+        }
+        catch (QueryException $e) {
+            // Tangani kesalahan query, jika ada
+            return back()->with('error', "Tidak bisa mendaftar. Coba lagi nanti.");
+        }
     }
+        
     
 }

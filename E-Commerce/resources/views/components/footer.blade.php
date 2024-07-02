@@ -8,18 +8,17 @@
         <div>
             <h2 class="mb-6 text-sm font-semibold  uppercase text-white">Shop</h2>
             <ul class="text-gray-500 dark:text-gray-400 font-medium">
-                <li class="mb-4">
-                    <a href="#" class="hover:underline">Shirt</a>
-                </li>
-                <li class="mb-4">
-                    <a href="#" class="hover:underline">Tshirt</a>
-                </li>
-                <li class="mb-4">
-                    <a href="#" class="hover:underline">Pants</a>
-                </li>
-                <li class="mb-4">
-                    <a href="#" class="hover:underline">Accesories</a>
-                </li>
+                @if($categories->isEmpty())
+    <li class="mb-4">
+        <a href="#" class="hover:underline">No Categories Found</a>
+    </li>
+@else
+    @foreach($categories as $category)
+        <li class="mb-4">
+            <a href="{{ url("/menu_item/" . $category->id) }}"" class="hover:underline">{{ $category->name_category }}</a>
+        </li>
+    @endforeach
+@endif
             </ul>
         </div>
         <div>
