@@ -16,6 +16,7 @@ return new class extends Migration
 
             $table->string('name_products', 100);
             $table->string('description_products')->nullable();
+            $table->string('detail_products')->nullable();
             $table->integer('starting_price');
             $table->integer('prices_products');
             $table->integer('qty');

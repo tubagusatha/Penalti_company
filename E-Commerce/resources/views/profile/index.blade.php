@@ -1,93 +1,26 @@
 @extends('layout.app')
-<nav class="bg-black  w-full z-30 sticky top-0 start-0 ">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <span class="self-center mr-1 sm:mr-0 text-xl font-Font-Products font-bold whitespace-nowrap text-white">Pinalti Company</span>
-        </a>
-        <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <div class="gap-1 sm:gap-6 sm:flex flex">
-                @guest
-                    <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" type="button" class="text-white font-Font-Products bg-black border border-white font-medium rounded-lg text-sm px-2 sm:px-4 py-2 text-center"><a>Sign In</a></button>
-                    <button data-modal-target="modal-register" data-modal-toggle="modal-register" type="button" class="text-black bg-white font-Font-Products font-medium rounded-lg text-sm px-2 sm:px-4 py-2 text-center"><a>Sign up</a></button>
-                @else
-                    <!-- Dropdown menu -->
-                    <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
-                        <span class="sr-only">Open user menu</span>
-                        <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo">
-                    </button>
-
-                    <div id="dropdownAvatar" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-                        <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                            <div>{{ Auth::user()->firstname }} {{ Auth::user()->lastname }}</div>
-                            <div class="font-medium truncate">{{ Auth::user()->email }}</div>
-                        </div>
-                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
-                            @auth
-                                @if(auth()->user()->isAdmin())
-                                    <li>
-                                        <a href="{{ url('admin_panel') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                                    </li>
-                                @endif
-                            @endauth
-
-                            <li>
-                                <a href="{{ url('/profile') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profil</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My Order</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Manage Address</a>
-                            </li>
-                        </ul>
-                        <div class="py-2">
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Log Out</button>
-                            </form>
-                        </div>
-                    </div>
-                @endguest
-            </div>
-            <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
-                <span class="sr-only">Open main menu</span>
-                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-                </svg>
-            </button>
-        </div>
-
-        <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-            <ul class="flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-black md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
-                <li>
-                    <a href="{{ url('/') }}" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0">Home</a>
-                </li>
-                @foreach($categories as $category)
-                    <li>
-                        <a href="{{ url('/menu_item/' . $category->id) }}" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0">{{ $category->name_category }}</a>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
-    </div>
-</nav>
-
+@include('layout.nav')
 
 @section('main')
 <div class="container max-w-full sm:max-w-full">
     <div class="flex flex-wrap">
         <!-- top profile -->
         <div class="w-full p-5 bg-black flex items-center">
-            <img src="{{ asset('assets/img/pic.svg') }}" alt="" class="mr-4">
+         @if($user_gallery->isNotEmpty())
+        @php
+            $firstGallery = $user_gallery->last();
+        @endphp
+        <img src="{{ asset($firstGallery->url_image) }}" alt="userImage" class="w-24 mr-4 rounded">
+    @else
+        <img class="w-24 mr-4 rounded" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="">
+
+    @endif
             <div class="">
                 <div class="font-bold text-2xl  md:text-4xl text-white">
                     {{Auth::user()->firstname}} {{Auth::user()->lastname}}
                 </div>
-                <div class="flex">
-                    
-                    <div><img src="{{asset('assets/img/pen.svg')}}" alt="" class="pt-2 pr-2 md:w-6"></div>
-                    <div class="pt-0.5 underline"><a href="" class="text-sm md:text-lg text-center font-light text-gray">Ubah Profile</a></div>
-                    
+                <div class="text-base text-gray-900 text-white">
+                    {{Auth::user()->email}}
                 </div>
             </div>
         </div> 
@@ -105,12 +38,12 @@
             <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 md:text-lg" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">My Order</button>
         </li>
         <li class="me-2" role="presentation">
-            <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 md:text-lg" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Manage-Address</button>
+            <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 md:text-lg" id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Address</button>
         </li>
     </ul>
 </div>
 <div id="default-tab-content">
-    <div class="hidden   bg-white dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+    <div class="hidden mb-5 bg-white dark:bg-gray-800" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 
     
 
@@ -121,25 +54,195 @@
         <h4 class="text-lg md:text-xl font-semibold">Profil saya</h4>
         <p class="font-light text-xs md:text-2xl text-slate-500">Kelola informasi profil Anda untuk mengontrol, melindungi dan mengamankan akun</p>
     </div>
-
-    <!-- Garis panjang di bawah "Profil saya" -->
+    
     <hr class="mt-3 mx-4 border-slate-400">
 
-    <div class="md:flex md:flex-row-reverse">
-    <div class="container sm:mx-w-full mx-1/2 pt-5">
-    <div class="flex flex-col items-center justify-center">
-    <img src="{{ asset('assets/img/pic.svg') }}" alt="" class="w-24">
-    <div class="mt-6">
-        <label for="upload" class="text-xs border font-semibold text-dark bg-white py-2 px-4 border-gray rounded-md cursor-pointer">Pilih Gambar</label>
-        <input type="file" id="upload" class="hidden">
-    </div>
-    <div class="text-sm mt-6">
-        <p class="text-gray font-light">Ukuran gambar: maks. 1 MB</p>
-        <p class="text-gray font-light">Format gambar: JPEG, PNG</p>
-    </div>
-</div>
 
+    <!-- Pesan Kesalahan -->
+    @if (session('error'))
+<div id="errorMessage" class="px-4 py-2 bg-red-500 text-white ">
+    {{ session('error') }}
 </div>
+@endif
+
+<!-- Pesan Sukses -->
+@if (session('success'))
+<div id="successMessage" class="px-4 py-2 bg-green-500 text-white mb-4">
+    {{ session('success') }}
+</div>
+@endif
+
+<!-- JavaScript untuk mengatur pesan kesalahan -->
+<script>
+    setTimeout(function() {
+        var errorMessage = document.getElementById('errorMessage');
+        if (errorMessage) {
+            errorMessage.style.display = 'none';
+        }
+    }, 5000); 
+    
+    setTimeout(function() {
+        var successMessage = document.getElementById('successMessage');
+        if (successMessage) {
+            successMessage.style.display = 'none';
+        }
+    }, 5000);// Mengatur pesan kesalahan agar hilang setelah 5 detik
+</script>
+    <div class="md:flex md:flex-row-reverse">
+        <div class="container sm:mx-w-full mx-1/2 pt-5">
+            <div class="flex flex-col items-center justify-center">
+                
+                @if($user_gallery->isNotEmpty())
+                @php
+                    $firstGallery = $user_gallery->last();
+                @endphp
+                <img src="{{ asset($firstGallery->url_image) }}" alt="userImage" class="w-24 rounded">
+            @else
+                <img class="w-24 rounded" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="">
+        
+            @endif
+            
+            
+            
+        
+        <!-- Modal toggle -->
+        @if($user_gallery->isNotEmpty())
+        <a data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="inline-flex justify-center p-1 text-red-500 rounded cursor-pointer hover:text-red-900 hover:bg-red-100 dark:text-red-400 dark:hover:bg-red-700 dark:hover:text-white mt-1">
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
+        </a>
+        
+            
+            <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative p-4 w-full max-w-md max-h-full">
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+        
+                        <div class="p-4 md:p-5 text-center">
+                            <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                            </svg>
+                            <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this product?</h3>
+                            @foreach($user_gallery as $image)
+                            <form action="{{ route('gallery.destroy', ['image_id' => $image->id]) }}" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button data-modal-hide="popup-modal" type="submit" >Yes, I'm sure</button>
+                            </form>
+                            @endforeach
+                            <button data-modal-hide="popup-modal" type="button" class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">No, cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        <button data-modal-target="crud-modal-update" data-modal-toggle="crud-modal-update" class="border mt-1 text-dark bg-white py-2 px-4 border-gray rounded-md" type="button">
+            Update Gambar
+          </button>
+        @else
+        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="border mt-1 text-dark bg-white py-2 px-4 border-gray rounded-md" type="button">
+            Pilih Gambar
+          </button>
+        
+        @endif
+          
+          <!-- Main modal -->
+          <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+              <div class="relative p-4 w-full max-w-md max-h-full">
+                  <!-- Modal content -->
+                  <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                      <!-- Modal header -->
+                      <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                              Create New Profile
+                          </h3>
+                          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
+                              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                              </svg>
+                              <span class="sr-only">Close modal</span>
+                          </button>
+                      </div>
+                      <!-- Modal body -->
+                      <form action="{{ route('profile.store', $user->id) }}" class="p-4 md:p-5" method="POST" enctype="multipart/form-data">
+                        @csrf
+                          <div class=" mb-4">
+                              
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload profile</label>
+                        <input name="files[]" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" accept="image/*" type="file" multiple>
+        
+                          </div>
+                          <div class="flex justify-end">
+                          <button type="submit" class="text-white  inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                              <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                              Add New Profile
+                          </button>
+                        </div>
+                      </form>
+                  </div>
+              </div>
+          </div> 
+        
+          <!-- Update modal -->
+          <div id="crud-modal-update" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+              <div class="relative p-4 w-full max-w-md max-h-full">
+                  <!-- Modal content -->
+                  <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                      <!-- Modal header -->
+                      <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                              Update Profile
+                          </h3>
+                          <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal-update">
+                              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                              </svg>
+                              <span class="sr-only">Close modal</span>
+                          </button>
+                      </div>
+                      <!-- Modal body -->
+                      <form action="{{ route('profile.update', $user->id) }}" class="p-4 md:p-5" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PATCH')
+                          <div class=" mb-4">
+                              
+        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload profile</label>
+        <input name="files[]" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" accept="image/*" type="file" multiple>
+        
+                          </div>
+                          <div class="flex justify-end">
+                          <button type="submit" class="text-white  inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                              <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                              Add Update Profile
+                          </button>
+                        </div>
+                      </form>
+                  </div>
+              </div>
+          </div> 
+          
+            {{-- <div class="mt-6">
+        
+                <label for="file_input" class="text-xs border font-semibold text-dark bg-white py-2 px-4 border-gray rounded-md cursor-pointer">Pilih Gambar</label>
+                <input class="hidden" aria-describedby="file_input_help" id="file_input" accept="image/*" name="files[]" type="file" required>
+            </div> --}}
+            <div class="text-sm mt-3">
+                <p class="text-gray font-light">Ukuran gambar: maks. 1 MB</p>
+                <p class="text-gray font-light">Format gambar: JPEG, PNG</p>
+            </div>
+        </div>
+        
+        </div>
+        
+        
+        
+
+        
+                                    
 
     <div class="md:flex md:flex-row-reverse"> 
     <div class="grid grid-cols-2 gap-4 sm:mx-w-full mx-1/2 pt-10 justify-end">
@@ -149,7 +252,7 @@
         <!-- email -->
         <div class="text-md text-end text-gray mr-3">Email Address</div>
 
-        <p class="text-md text-dark">{{Auth::user()->email}}<br><button data-modal-target="ganti-email" data-modal-toggle="ganti-email" type="button" class="text-white font-Font-Products bg-black border border-white font-medium rounded-lg text-sm px-2 sm:px-4 py-2 text-center"><a href="#" class="text-xs text-dark font-light underline">Ubah</a></button></p>
+        <p class="text-md text-dark">{{Auth::user()->email}}<br><a style="cursor: pointer" data-modal-target="ganti-email" data-modal-toggle="ganti-email" class="text-xs text-dark font-light underline">Ubah</a></p>
         
 
         <!-- modal email -->
@@ -158,38 +261,38 @@
     <div class="relative p-4 w-full  max-w-md max-h-full">
         <!-- Modal content -->
         <div class="relative bg-[#151515] p-12 rounded-lg shadow ">
-        <div class="">
-        <h1 class=" text-center font-bold text-3xl mb-8 text-white">Ubah Email</h1>
-        <div>
-        </div>
-</div>
             <!-- Modal header -->
             <div class="flex items-center justify-center   rounded-t dark:border-gray-600">
 
-                <!-- <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="authentication-modal">
+                <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="ganti-email">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                     </svg>
                     <span class="sr-only">Close modal</span>
-                </button> -->
+                </button> 
             </div>
+        <div class="">
+        <h1 class=" text-center font-bold text-3xl mb-8 text-white">Ubah Email</h1>
+        <div>
+        </div>
+        </div>
+            
             <!-- Modal body -->
             <div class="">
-                <form class="space-y-4" action="{{route('login')}}" method="POST">
-                  @csrf
+                <form class="space-y-4" action="{{ route('profile.email.update', $user->id) }}" method="POST">
+                    @csrf
+                    @method("PATCH")
                     <div>
                         <label for="email" class="block mb-2 text-sm font-medium text-white">Email baru</label>
                         <input type="email" name="email" id="email" class="bg-[#464646] border border-[#464646] bg-transparent text-white text-sm block w-full p-2.5" placeholder="Your Email" required />
                     </div>
                     
-
-
-                    
-                    </div>
                     <div class="w-full text-center mt-3 mb-3">
-                    <button type="submit" class=" bg-white  font-medium rounded-sm text-sm px-5 py-2 text-center">Save</button>
+                        <button type="submit" class=" bg-white font-medium rounded-sm text-sm px-5 py-2 text-center">Save</button>
                     </div>
                 </form>
+            </div>
+            
             </div>
         </div>
     </div>
@@ -197,10 +300,130 @@
         <!-- end modal email -->
 
         <!-- mobile num -->
-        <div class="text-md text-end text-gray mr-3">Mobile Number</div>
-        <p class="text-md text-start text-dark">{{Auth::user()->number}} <a href="#" class="text-xs text-dark font-light underline"> <br>Ubah </a></p>
+        <div class="text-md text-end text-gray mr-3">Nomor Telepon</div>
+        <p class="text-md text-start text-dark">{{Auth::user()->number}} <a style="cursor: pointer" data-modal-target="ganti-nomor" data-modal-toggle="ganti-nomor"  class="text-xs text-dark font-light underline"> <br>Ubah </a></p>
 
+        {{-- Modal number  --}}
+
+        <div id="ganti-nomor" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden transition duration-300 ease-in-out fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full  max-w-md max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-[#151515] p-12 rounded-lg shadow ">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-center   rounded-t dark:border-gray-600">
         
+                        <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="ganti-nomor">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button> 
+                    </div>
+                <div class="">
+                <h1 class=" text-center font-bold text-3xl mb-8 text-white">Ubah Nomor Telepon</h1>
+                <div>
+                </div>
+                </div>
+                    
+                    <!-- Modal body -->
+                    <div class="">
+                        <form class="space-y-4" action="{{ route('profile.number.update', $user->id) }}" method="POST">
+                            @csrf
+                            @method("PATCH")
+                            <div>
+                                <label class="block mb-2 text-sm font-medium text-white" for="number">Nomor Telepon Baru</label>
+                                <input type="text" name="number" id="number" class=" bg-transparent text-white text-sm block w-full p-2" placeholder="Your Number" required />
+                            </div>
+                            
+                            <div class="w-full text-center mt-3 mb-3">
+                                <button type="submit" class=" bg-white font-medium rounded-sm text-sm px-5 py-2 text-center">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    </div>
+                </div>
+            </div>
+
+            <!-- password -->
+        <div class="text-md text-end text-gray mr-3">Password</div>
+        <p class="text-md text-start text-dark">********<a style="cursor: pointer" data-modal-target="ganti-password" data-modal-toggle="ganti-password"  class="text-xs text-dark font-light underline"> <br>Ubah </a></p>
+
+        {{-- Modal password  --}}
+
+        <div id="ganti-password" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden transition duration-300 ease-in-out fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full  max-w-md max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-[#151515] p-12 rounded-lg shadow ">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-center   rounded-t dark:border-gray-600">
+        
+                        <button type="button" class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="ganti-password">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button> 
+                    </div>
+                <div class="">
+                <h1 class=" text-center font-bold text-3xl mb-8 text-white">Ubah Password</h1>
+                <div>
+                </div>
+                </div>
+                    <!-- Modal body -->
+<div class="">
+    <form class="space-y-4" action="{{ route('profile.password.update', $user->id) }}" method="POST">
+      @csrf
+      @method("PATCH")
+      <div>
+        <label for="password" class="block mb-2 text-sm font-medium text-white">Ubah Password</label>
+        <div class="relative">
+          <input type="password" name="password" id="password" placeholder="••••••••" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" required />
+          <i class="uil uil-eye-slash absolute top-3 right-2 toggle" data-toggle="password"></i>
+        </div>
+      </div>
+      <div>
+        <label for="password_confirmation" class="block mb-2 text-sm font-medium text-white">Konfirmasi Password</label>
+        <div class="relative">
+          <input type="password" name="password_confirmation" id="password_confirmation" placeholder="••••••••" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" required />
+          <i class="uil uil-eye-slash absolute top-3 right-2 toggle" data-toggle="password_confirmation"></i>
+        </div>
+      </div>
+      <div class="w-full text-center mt-3 mb-3">
+        <button type="submit" class="bg-white font-medium rounded-sm text-sm px-5 py-2 text-center">Save</button>
+      </div>
+    </form>
+  </div>
+                    
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                // Function to toggle password visibility
+                function togglePasswordVisibility(inputId, icon) {
+                  console.log('togglePasswordVisibility called');
+                  const input = document.getElementById(inputId);
+                  if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('uil-eye-slash');
+                    icon.classList.add('uil-eye');
+                  } else {
+                    input.type = 'password';
+                    icon.classList.remove('uil-eye');
+                    icon.classList.add('uil-eye-slash');
+                  }
+                }
+              
+                // Add event listener to each toggle icon
+                document.querySelectorAll('.toggle').forEach(toggle => {
+                  toggle.addEventListener('click', function() {
+                    console.log('Toggle icon clicked');
+                    const inputId = this.getAttribute('data-toggle');
+                    togglePasswordVisibility(inputId, this);
+                  });
+                });
+              </script>
 
         <!-- jenis kelamin -->
         <div class="text-md text-gray text-end mr-3">Jenis Kelamin</div>
@@ -243,10 +466,10 @@
 
       </div>
 
+    </div>
       </div>
-      
-      </section>
-      </main>
+    </main>
+    </section>
 
     </div>
 
@@ -344,7 +567,7 @@
                 <h3 class="text-2xl font-semibold font-sans text-white pt-2">
                     Add Address
                 </h3>
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="modal-address">
                     <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
                         data-modal-toggle="modal-address"/>
@@ -352,41 +575,51 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form class="px-6 py-3 md:p-5">
+            <form class="px-6 py-3 md:p-5" method="POST" action="{{route('address.store', $user->id) }}">
+                @csrf
                 <div class="grid gap-4 mb-4 grid-cols-4">
                     <div class="col-span-4">
-                        <label for="name" class="block mb-2 text-md font-medium text-white ">Address Label</label>
-                        <input type="text" name="address" id="name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="example: Home, Apartment, etc" required="">
+                        <label for="address_label" class="block mb-2 text-md font-medium text-white ">Address Label</label>
+                        <input type="text" name="address_label" id="address_label" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="example: Home, Apartment, etc" required="">
                     </div>
                     <div class="col-span-4">
-                        <label for="name" class="block mb-2 text-md font-medium text-white ">Recipient Name</label>
-                        <input type="text" name="address" id="name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="enter name" required="">
+                        <label for="recipient_name" class="block mb-2 text-md font-medium text-white ">Recipient Name</label>
+                        <input type="text" name="recipient_name" id="recipient_name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="enter name" required="">
                     </div>
                     <div class="col-span-4">
-                        <label for="name" class="block mb-2 text-md font-medium text-white ">Recipient’s Mobile Number</label>
-                        <input type="text" name="address" id="name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="Type mobile number here" required="">
+                        <label for="recipient_mobile_number" class="block mb-2 text-md font-medium text-white ">Recipient’s Mobile Number</label>
+                        <input type="text" name="recipient_mobile_number" id="recipient_mobile_number" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="Type mobile number here" required="">
                     </div>
                     <div class="col-span-4">
-                        <label for="name" class="block mb-2 text-md font-medium text-white ">Address</label>
-                        <input type="text" name="address" id="name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="type address" required="">
+                        <label for="address" class="block mb-2 text-md font-medium text-white ">Address</label>
+                        <input type="text" name="address" id="address" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="type address" required="">
                     </div>
                     <div class="col-span-2">
-                        <label for="name" class="block mb-2 text-md font-medium text-white ">State</label>
-                        <input type="text" name="address" id="name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="Type state here" required="">
+                        <label for="state" class="block mb-2 text-md font-medium text-white ">State</label>
+                        <input type="text" name="state" id="state" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="Type state here" required="">
                     </div>
                     <div class="col-span-2">
-                        <label for="name" class="block mb-2 text-md font-medium text-white ">City</label>
-                        <input type="text" name="address" id="name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="Type city here" required="">
+                        <label for="city" class="block mb-2 text-md font-medium text-white ">City</label>
+                        <input type="text" name="city" id="city" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="Type city here" required="">
                     </div>
                     <div class="col-span-2">
-                        <label for="name" class="block mb-2 text-md font-medium text-white ">Subdistrict</label>
-                        <input type="text" name="address" id="name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="Type subdistrict here" required="">
+                        <label for="subdistrict" class="block mb-2 text-md font-medium text-white ">Subdistrict</label>
+                        <input type="text" name="subdistrict" id="subdistrict" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="Type subdistrict here" required="">
                     </div>
                     <div class="col-span-2">
-                        <label for="name" class="block mb-2 text-md font-medium text-white ">Postcode</label>
-                        <input type="text" name="address" id="name" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="Type postcode here" required="">
+                        <label for="postcode" class="block mb-2 text-md font-medium text-white ">Postcode</label>
+                        <input type="text" name="postcode" id="postcode" class="bg-transparent bg-[#464646] text-white text-sm block w-full p-2" placeholder="Type postcode here" required="">
                     </div>
-
+                    @php
+                        $hasPrimaryAddress = App\Models\Address::where('user_id', auth()->id())->where('primary', true)->exists();
+                    @endphp
+                    <div class="col-span-2 items-center flex">
+                        <label for="primary" class="inline-flex items-center cursor-pointer">
+                            <input id="primary" type="checkbox" name="primary" value="1" class="sr-only peer" {{ $hasPrimaryAddress ? 'disabled' : '' }}>
+                            <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                            <span class="ms-3 text-sm font-medium text-white dark:text-white">Primary Address</span>
+                        </label>
+                    </div>
                 </div>
                 <div class="bg-red">
                 <button type="submit" class="text-white w-full items-center justify-center font-medium text-sm px-5 py-2.5 text-center">
@@ -397,100 +630,39 @@
         </div>
     </div>
 </div> 
-
-
+@foreach ($addresses as $a)
 <div class="w-full py-5">
-    <div class="border h-50 border-gray relative">
-        <div class="absolute top-0 right-0 py-3 px-3">
-            <a style="font-size: xx-small;" class="font-light items-end justify-end text-white bg-red py-1 px-3 hover:shadow-lg hover:opacity-80">PRIMARY</a>
+    <div class="border rounded-lg p-4 shadow-sm bg-white">
+        <div class="flex justify-between items-center mb-2">
+            <span class="text-lg font-semibold">{{$a->address_label}}</span>
+            @if ($a->primary == true)
+            <span class="bg-red text-white text-xs font-medium px-2 py-1 rounded">PRIMARY</span>
+            @endif
         </div>
-
-        <div class="py-3 px-3">
-            <h1 class="text-sm md:text-lg text-dark font-semibold">Home</h1>
-            <h2 class="text-sm md:text-lg text-dark font-medium">Hendra Mustafa</h2>
-            <h3 class="text-sm md:text-lg text-dark font-light">Jl. Benesari, Banjar Pengabetan</h3>
-            <h3 class="text-sm md:text-lg text-dark font-light">Jawa Timur, Surabaya, Wonokromo, 61432</h3>
-
-            <div class="pt-14 justify-between flex">
-            <a href="" class="text-md text-dark font-light">EDIT</a>
-            <a href="" class="text-md text-dark font-light"><img src="{{ asset(('assets/img/trash.svg'))}}" class="pl-80" alt="Trash"></a>
-            
-            </div>
+        <div class="text-sm text-gray-700">
+            <p>{{ $a->recipient_name }}</p>
+            <p>{{ $a->address }}</p>
+            <p>{{ $a->state }}, {{ $a->city }}, {{ $a->subdistrict }}, {{ $a->postcode }}</p>
         </div>
+        <div class="flex justify-between items-center mt-4">
+            <button class="text-dark text-sm">EDIT</button>
 
-        
-        
+            <form action="{{ route('address.destroy', $a->id) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="text-md text-dark font-light" style="border: none; background: none; padding: 0;" onclick="return confirm('Are you sure you want to delete this address?')">
+                    <img src="{{ asset('assets/img/trash.svg')}}" class="pl-80" alt="Trash">
+                </button>
+            </form>
+    </div>
     </div>
 </div>
-
-<div class="w-full py-5">
-    <div class="border h-50 border-gray relative">
-
-        <div class="py-3 px-3">
-            <h1 class="text-sm md:text-lg text-dark font-semibold">Home</h1>
-            <h2 class="text-sm md:text-lg text-dark font-medium">Hendra Mustafa</h2>
-            <h3 class="text-sm md:text-lg text-dark font-light">Jl. Benesari, Banjar Pengabetan</h3>
-            <h3 class="text-sm md:text-lg text-dark font-light">Jawa Timur, Surabaya, Wonokromo, 61432</h3>
-
-            <div class="pt-14 justify-between flex">
-            <a href="" class="text-md text-dark font-light">EDIT</a>
-            <a href="" class="text-md text-dark font-light"><img src="{{ asset(('assets/img/trash.svg'))}}" class="pl-80" alt="Trash"></a>
-            
-            </div>
+@endforeach
         </div>
-
-        
-        
     </div>
-</div>
 
-<div class="w-full py-5">
-    <div class="border h-50 border-gray relative">
+   
 
-        <div class="py-3 px-3">
-            <h1 class="text-sm md:text-lg text-dark font-semibold">Home</h1>
-            <h2 class="text-sm md:text-lg text-dark font-medium">Hendra Mustafa</h2>
-            <h3 class="text-sm md:text-lg text-dark font-light">Jl. Benesari, Banjar Pengabetan</h3>
-            <h3 class="text-sm md:text-lg text-dark font-light">Jawa Timur, Surabaya, Wonokromo, 61432</h3>
+@include('components.footer')
 
-            <div class="pt-14 justify-between flex">
-            <a href="" class="text-md text-dark font-light">EDIT</a>
-            <a href="" class="text-md text-dark font-light"><img src="{{ asset(('assets/img/trash.svg'))}}" class="pl-80" alt="Trash"></a>
-            
-            </div>
-        </div>
-
-        
-        
-    </div>
-</div>
-
-<div class="w-full py-5">
-    <div class="border h-50 border-gray relative">
-        <div class="py-3 px-3">
-            <h1 class="text-sm md:text-lg text-dark font-semibold">Home</h1>
-            <h2 class="text-sm md:text-lg text-dark font-medium">Hendra Mustafa</h2>
-            <h3 class="text-sm md:text-lg text-dark font-light">Jl. Benesari, Banjar Pengabetan</h3>
-            <h3 class="text-sm md:text-lg text-dark font-light">Jawa Timur, Surabaya, Wonokromo, 61432</h3>
-
-            <div class="pt-14 justify-between flex">
-            <a href="" class="text-md text-dark font-light">EDIT</a>
-            <a href="" class="text-md text-dark font-light"><img src="{{ asset(('assets/img/trash.svg'))}}" class="pl-80" alt="Trash"></a>
-            
-            </div>
-        </div>
-
-        
-        
-    </div>
-</div>
-
-    </div>
-</div>
-
-    
-
-
-<script src="../path/to/flowbite/dist/datepicker.js"></script> 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/datepicker.min.js"></script>
 @endsection

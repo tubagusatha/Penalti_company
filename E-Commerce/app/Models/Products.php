@@ -16,6 +16,7 @@ class Products extends Model
     protected $fillable = [
         'name_products',
         'description_products',
+        'detail_products',
         'starting_price',
         'prices_products',
         'qty',
@@ -29,6 +30,18 @@ class Products extends Model
 {
     return $this->hasMany(ProductsGallery::class, 'product_id', 'id');
 }
+
+public static function check()
+    {
+        // Pastikan query ini sesuai dengan skema database Anda
+        return self::count() > 0;
+    }
+
+public function size(): HasMany
+    {
+        return $this->hasMany(Products::class, 'product_id', 'id');
+    }
+
 
 /**
  * Get th carts associated with the Products
@@ -49,7 +62,6 @@ public function category(): BelongsTo
 {
     return $this->belongsTo(Category::class, 'category_id', 'id');
 }
-
 
 
 

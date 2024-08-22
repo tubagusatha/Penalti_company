@@ -1,106 +1,25 @@
 @extends("layout.app")
-<nav class="bg-black  w-full z-30 sticky top-0 start-0 ">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-    <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-        <span class="self-center mr-1 sm:mr-0 text-xl font-Font-Products font-bold whitespace-nowrap text-white">Pinalti Company</span>
-    </a>
-    <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-      <div class="gap-1 sm:gap-6 sm:flex flex">
-        @guest
-      <button data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" type="button" class="text-white font-Font-Products bg-black border border-white font-medium rounded-lg text-sm px-2 sm:px-4 py-2 text-center"><a>Sign In</a></button>
-      <button data-modal-target="modal-register" data-modal-toggle="modal-register" type="button" class="text-black bg-white font-Font-Products font-medium rounded-lg text-sm px-2 sm:px-4 py-2 text-center"><a>Sign up</a></button>
-  @else
-      <!-- Dropdown menu -->
-      <button id="dropdownUserAvatarButton" data-dropdown-toggle="dropdownAvatar" class="flex text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" type="button">
-          <span class="sr-only">Open user menu</span>
-          <img class="w-8 h-8 rounded-full" src="/docs/images/people/profile-picture-3.jpg" alt="user photo">
-      </button>
-    
-      <div id="dropdownAvatar" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
-          <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-              <div>{{Auth::user()->firstname}} {{Auth::user()->lastname}}</div>
-              <div class="font-medium truncate">{{Auth::user()->email}}</div>
-          </div>
-          <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownUserAvatarButton">
-            @auth
-      @if(auth()->user()->isAdmin())
-          <li>
-              <a href="{{ url('admin_panel') }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-          </li>
-      @endif
-  @endauth
-  
-              <li>
-                  <a href="{{url('/profile')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profil</a>
-              </li>
-              <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">My Order</a>
-              </li>
-              <li>
-                  <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Manage Address</a>
-              </li>
-          </ul>
-          <div class="py-2">
-              <form id="logout-form" action="{{ route('logout') }}" method="POST">
-                  @csrf
-                  <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Log Out</button>
-              </form>
-          </div>    
-      </div>
-  @endguest
-  
-      </div>
-        <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
-          <span class="sr-only">Open main menu</span>
-          <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-          </svg>
-      </button>
-    </div>
-    
-    <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
-  
-      <ul class="flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-black md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
-        <li>
-            <a href="{{url(('/'))}}" class="block py-2 px-3 text-white rounded md:bg-transparent  md:p-0">Home</a>
-          </li>
-        @foreach($categories as $category)
-        <li>
-            <a href="{{ url("/menu_item/" . $category->id) }}" class="block py-2 px-3 text-white rounded md:bg-transparent md:p-0">{{ $category->name_category }}</a>
-        </li>
-        @endforeach
-    </ul>
-    
-  </div>
-  
-    </div>
-</nav>
+
+@include('layout.nav')
 
 @section('main')
 
 
 <div class="bg-dark">
   <div class="lg:flex">
-<div class="w-auto lg:w-1/2 ps-6 pe-6">
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-2">
-        <div class="col-span-1">
-        <img src="{{asset(('assets/img/detailpic1.svg'))}}" alt="">
-        </div>
-        <div class="col-span-1">
-        <img src="{{asset(('assets/img/detailpic2.svg'))}}" alt="">
-        </div>
-        <div class="col-span-1">
-        <img src="{{asset(('assets/img/detailpic3.svg'))}}" alt="">
-        </div>
-        <div class="col-span-1">
-        <img src="{{asset(('assets/img/detailpic4.svg'))}}" alt="">
-        </div>
-        <div class="col-span-1">
-        <img src="{{asset(('assets/img/detailpic5.svg'))}}" alt="">
-        </div>
-        <div class="col-span-1">
-        <img src="{{asset(('assets/img/detailpic6.svg'))}}" alt="">
-        </div>
+    
+<div class="w-auto lg:w-1/2 ps-6 pe-6" style="max-width: 50%;">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-2" >
+        @if($galleries->isNotEmpty())
+    @foreach($galleries->take(6) as $g)
+    <div class="col-span-1">
+        <img src="{{ asset($g->url_image) }}" style="width: 100%;" alt="">
+    </div>
+    @endforeach
+@else
+    <img class="rounded" src="data:image/gif;base64,R0lGODlhAQABAIAAAMLCwgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="">
+@endif
+
     </div>
     </div>
     
@@ -111,13 +30,13 @@
     <div class="">
     <div class="flex justify-between">
         <div class="flex-initial w-auto">
-        <h1 class="text-white text-xl md:text-3xl lg:text-5xl" >Athletics Frencs Terry Hoodie</h1>
+        <h1 class="text-white text-xl md:text-3xl lg:text-5xl" >{{$product->name_products}}</h1>
         </div>
     <div class=" flex-initial w-10 md:w-20 lg:hidden">
     <svg class="w-6 h-6 md:w-10 md:h-10 text-white" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 384 512"><path d="M0 48C0 21.5 21.5 0 48 0l0 48V441.4l130.1-92.9c8.3-6 19.6-6 27.9 0L336 441.4V48H48V0H336c26.5 0 48 21.5 48 48V488c0 9-5 17.2-13 21.3s-17.6 3.4-24.9-1.8L192 397.5 37.9 507.5c-7.3 5.2-16.9 5.9-24.9 1.8S0 497 0 488V48z"/></svg>
     </div>
 </div>
-        <h2 class="text-white font-light text-md md:text-lg pt-1">$89.899</h2>
+        <h2 class="text-white font-light text-md md:text-lg pt-1">Rp. {{number_format($product->prices_products)}}</h2>
         
         </div>
         </div>
@@ -203,51 +122,20 @@
             </div>
             <!-- Modal footer -->
             <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button data-modal-hide="default-modal" type="button" class="text-white bg-black hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Oke Ngerti</button>
+                <button data-modal-hide="default-modal" type="button" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Oke Ngerti</button>
             </div>
         </div>
     </div>
+</div><div class="grid grid-cols-4 md:grid-cols-5 gap-2 pt-1">
+    @foreach($sizes as $size)
+    <li>
+        <input type="checkbox" style="" id="{{ $size->ukuran }}" name="sizes[]" value="{{ $size->ukuran }}" class="hidden peer">
+        <label for="{{ $size->ukuran }}" class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex border w-26 lg:h-14 col-span-1 peer-checked:bg-white peer-checked:text-gray-600 peer-checked:border-blue-600 hover:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:peer-checked:text-gray-300">
+            {{$size->ukuran}}
+        </label>
+    </li>
+    @endforeach
 </div>
-<div class="grid grid-cols-4 md:grid-cols-5 gap-2 pt-1">
-    <li>
-        <input type="radio" id="size-xs" name="size" value="XS" class="hidden peer" required>
-        <label for="size-xs" class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex border w-26 lg:h-14 col-span-1 peer-checked:bg-white peer-checked:text- peer-checked:border-blue-600 hover:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:peer-checked:text-gray-300">
-            XS
-        </label>
-    </li>
-    <li>
-        <input type="radio" id="size-s" name="size" value="S" class="hidden peer">
-        <label for="size-s" class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex border w-26 lg:h-14 col-span-1 peer-checked:bg-white peer-checked:text-gray-600 peer-checked:border-blue-600 hover:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:peer-checked:text-gray-300">
-            S
-        </label>
-    </li>
-    <li>
-        <input type="radio" id="size-m" name="size" value="M" class="hidden peer">
-        <label for="size-m" class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex border w-26 lg:h-14 col-span-1 peer-checked:bg-white peer-checked:text-gray-600 peer-checked:border-blue-600 hover:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:peer-checked:text-gray-300">
-            M
-        </label>
-    </li>
-    <li>
-        <input type="radio" id="size-l" name="size" value="L" class="hidden peer">
-        <label for="size-l" class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex border w-26 lg:h-14 col-span-1 peer-checked:bg-white peer-checked:text-gray-600 peer-checked:border-blue-600 hover:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:peer-checked:text-gray-300">
-            L
-        </label>
-    </li>
-    <li>
-        <input type="radio" id="size-xl" name="size" value="XL" class="hidden peer">
-        <label for="size-xl" class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex border w-26 lg:h-14 col-span-1 peer-checked:bg-white peer-checked:text-gray-600 peer-checked:border-blue-600 hover:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:peer-checked:text-gray-300">
-            XL
-        </label>
-    </li>
-    <li>
-        <input type="radio" id="size-2xl" name="size" value="2XL" class="hidden peer">
-        <label for="size-2xl" class="text-white hover:text-black text-md lg:text-xl text-center justify-center items-center flex border w-26 lg:h-14 col-span-1 peer-checked:bg-white peer-checked:text-gray-600 peer-checked:border-blue-600 hover:text-gray-600 hover:bg-gray-50 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700 dark:peer-checked:text-gray-300">
-            2XL
-        </label>
-    </li>
-</div>
-
-    
 
     <form class="mt-4">
     <div class="relative flex items-center max-w-[8rem]">
@@ -264,6 +152,24 @@
         </button>
     </div>
 </form>
+
+<script>
+    document.getElementById('decrement-button').addEventListener('click', function() {
+        const input = document.getElementById('quantity-input');
+        let value = parseInt(input.value) || 0;
+        if (value > 0) {
+            input.value = value - 1;
+        }
+    });
+
+    document.getElementById('increment-button').addEventListener('click', function() {
+        const input = document.getElementById('quantity-input');
+        let value = parseInt(input.value) || 0;
+        input.value = value + 1;
+    });
+</script>
+
+
 
 </div>
 <!-- end select size -->
@@ -294,7 +200,7 @@
   </h2>
   <div id="accordion-flush-body-1" class="hidden" aria-labelledby="accordion-flush-heading-1">
     <div class="py-5 border-b border-white dark:border-gray-700">
-      <p class="mb-2 text-gray-500 dark:text-gray-400">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,  when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+      <p class="mb-2 text-gray-500 dark:text-gray-400">{{$product->description_products}}</p>
     </div>
   </div>
   <h2 id="accordion-flush-heading-2">
@@ -307,7 +213,7 @@
   </h2>
   <div id="accordion-flush-body-2" class="hidden" aria-labelledby="accordion-flush-heading-2">
     <div class="py-5 border-b border-white dark:border-gray-700">
-      <p class="mb-2 text-gray-500 dark:text-gray-400">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque impedit ullam suscipit, iste natus quisquam at hic optio, provident repellat animi autem adipisci eius nemo! Dignissimos voluptatum repellat fugit possimus?</p>
+      <p class="mb-2 text-gray-500 dark:text-gray-400">{{$product->detail_products}}</p>
       
     </div>
   </div>
@@ -332,43 +238,20 @@
 <div class="p-6 pt-10 ">
     <h1 class="text-white text-lg lg:text-2xl">You Might Also Like</h1>
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 pt-5">
+        @foreach($product as $p)
     <div class="col-span-1">
-                    <div class="max-w-full">
-                    <a href="{{url(('/detail'))}}"><img src="{{ asset('assets/img/pic_profile_order.svg') }}" alt="Pic" class="w-full h-auto"></a>
-                    <div class="py-2">
-                    <h1 class="text-white text-sm md:text-lg font-medium">Classic Polo Shirt</h1>
-                    <p class="text-white text-[11px] md:text-xs font-light">Rp 128.000</p>
-                    </div>
-                    </div>
-                    
-                </div>
-                <div class="col-span-1">
-                    <div class="max-w-full">
-                    <a href="{{url(('/detail'))}}"><img src="{{ asset('assets/img/pic_profile_order.svg') }}" alt="Pic" class="w-full h-auto"></a>
-                    <div class="py-2">
-                    <h1 class="text-white text-sm md:text-lg font-medium">Classic Polo Shirt</h1>
-                    <p class="text-white text-[11px] md:text-xs font-light">Rp 128.000</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-span-1">
-                    <div class="max-w-full">
-                    <a href="{{url(('/detail'))}}"><img src="{{ asset('assets/img/pic_profile_order.svg') }}" alt="Pic" class="w-full h-auto"></a>
-                    <div class="py-2">
-                    <h1 class="text-white text-sm md:text-lg font-medium">Classic Polo Shirt</h1>
-                    <p class="text-white text-[11px] md:text-xs font-light">Rp 128.000</p>
-                    </div>
-                    </div>
-                </div>
-                <div class="col-span-1 md:hidden lg:block">
-                    <div class="max-w-full">
-                    <a href="{{url(('/detail'))}}"><img src="{{ asset('assets/img/pic_profile_order.svg') }}" alt="Pic" class="w-full h-auto"></a>
-                    <div class="py-2">
-                    <h1 class="text-white text-sm md:text-lg font-medium">Classic Polo Shirt</h1>
-                    <p class="text-white text-[11px] md:text-xs font-light">Rp 128.000</p>
-                    </div>
-                    </div>
-                </div>
+        <div class="max-w-full">
+            <a href="{{url(('/detail'))}}">
+                <img src="{{ asset('assets/img/pic_profile_order.svg') }}" alt="Pic" class="w-full h-auto">
+            </a>
+            <div class="py-2">
+                <h1 class="text-white text-sm md:text-lg font-medium">{{$p->name_products}}</h1>
+                <p class="text-white text-[11px] md:text-xs font-light">Rp {{$p->prices_products}}</p>
+            </div>
+        </div>
+    </div>
+@endforeach
+
     </div>
 </div>
     

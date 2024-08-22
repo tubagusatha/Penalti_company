@@ -11,16 +11,8 @@ class AdminController extends Controller
         return view('admin_ui.index');
     }
 
-    public function product(){
-//
-    }
-
     public function user(){
         return view('admin_ui.crud.users.index');
-    }
-
-    public function setting(){
-        return view('admin_ui.settings.index');
     }
 
     public function charts(){
